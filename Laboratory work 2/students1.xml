@@ -1,0 +1,38 @@
+<students>
+
+    <student name="Sergei" surname="Belick" middlename="Alexandrovich" group="021702" diseases="5" otherreasons="0"
+             withoutavalid="5" total="10"/>
+    <student name="Alexsandr" surname="Lotsman" middlename="Dmitrevich" group="370437" diseases="1" otherreasons="1"
+             withoutavalid="1" total="3"/>
+    <student name="Maia" surname="Vosnich" middlename="Alexandrovna" group="021702" diseases="2" otherreasons="3"
+             withoutavalid="2" total="7"/>
+    <student name="Anastasia" surname="Degterev" middlename="Alexandrovn" group="021702" diseases="0" otherreasons="0"
+             withoutavalid="0" total="0"/>
+    <student name="Kavkov" surname="Maksim" middlename="Andreevich" group="021702" diseases="0" otherreasons="0"
+             withoutavalid="0" total="0"/>
+    <student name="Anastasia" surname="Saevich" middlename="Olegovna" group="998837" diseases="0" otherreasons="0"
+             withoutavalid="0" total="0"/>
+    <student name="Katia" surname="Tarasevich" middlename="Sergeevna" group="998837" diseases="18" otherreasons="0"
+             withoutavalid="0" total="18"/>
+    <student name="Amalia" surname="Pimkova" middlename="Abrahimovna" group="998837" diseases="7" otherreasons="3"
+             withoutavalid="5" total="15"/>
+    <student name="Ivan" surname="Lesko" middlename="Genedevich" group="998837" diseases="5" otherreasons="3"
+             withoutavalid="8" total="16"/>
+    <student name="Alina" surname="Xalimonets" middlename="Genedevna" group="998837" diseases="6" otherreasons="7"
+             withoutavalid="0" total="13"/>
+    <student name="Karpenko" surname="Lilia" middlename="Alexsandrovna" group="021702" diseases="0" otherreasons="10"
+             withoutavalid="2" total="12"/>
+    <student name="Artseom" surname="Soloveev" middlename="Mixailovich" group="921701" diseases="22" otherreasons="3"
+             withoutavalid="2" total="27"/>
+    <student name="Maksim" surname="Shilo" middlename="Valirevich" group="921701" diseases="0" otherreasons="4"
+             withoutavalid="10" total="14"/>
+    <student name="Vlad" surname="Mironchuck" middlename="Valirevich" group="998837" diseases="15" otherreasons="0"
+             withoutavalid="10" total="25"/>
+    <student name="Karina" surname="Makarevich" middlename="Sergeevna" group="021702" diseases="0" otherreasons="0"
+             withoutavalid="15" total="15"/>
+
+    <student name="Veronika" surname="IAtskova" middlename="Olegovna" group="021702" diseases="4" otherreasons="4"
+             withoutavalid="4" total="12"/>
+    <student name="Elena" surname="Sklema" middlename="Dmitrevna" group="021703" diseases="5" otherreasons="5"
+             withoutavalid="5" total="15"/>
+</students>
