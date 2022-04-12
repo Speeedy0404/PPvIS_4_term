@@ -83,7 +83,7 @@ class ReadOverwritingGrowthAndDeath:
 
     @staticmethod
     def deletion(name: str, param: int) -> None:
-        path = '/PyCharm/ППВиС/Laboratory_work_1_realization_2/'
+        path = '/PyCharm/ППВиС/Laboratory_work_4/'
         if param == 0:
             del_path1 = '_seeds.txt'
             del_path2 = '_vegetables.txt'
@@ -157,7 +157,7 @@ class ReadOverwritingPoorConditions:
 
     @staticmethod
     def deletion(name: str, del_name: str, param: int) -> None:
-        path = '/PyCharm/ППВиС/Laboratory_work_1_realization_2/'
+        path = '/PyCharm/ППВиС/Laboratory_work_4/'
 
         if param == 0:
             name_end = '_vegetables.txt'
