@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load static %} }}
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -19,6 +20,7 @@
     {% else %}
         <p>Нет коментариев</p>
     {% endif %}
-    <p>Понравилось: {{ article.article_likes }}</p>
+    <p><img src="{% static "like1.png" %}" alt="" width="25px"
+                        height="25px">{{ article.article_likes }}</p>
     <hr>
 {% endblock %}

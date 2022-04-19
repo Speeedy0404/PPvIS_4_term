@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load static %} }}
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -11,7 +12,8 @@
                 <h6>Дата публикации: {{ article.article_data }}</h6>
                 <h4><a href="/articles/get/{{ article.id }}">{{ article.article_title }}</a></h4>
                 <p>{{ article.article_text }}</p>
-                <p>Понравилось: {{ article.article_likes }}</p>
+                <p><img src="{% static "like1.png" %}" alt="" width="25px"
+                        height="25px">{{ article.article_likes }}</p>
                 <hr>
             </div>
         {% endfor %}
