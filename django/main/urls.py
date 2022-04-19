@@ -1,0 +1,10 @@
+from django.urls import path, re_path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='home'),
+    path('about-us', views.about, name='about'),
+    path('create', views.create, name='create'),
+    path('articles', views.articles, name='articles'),
+    re_path(r'^articles/get/(?P<article_id>\d+)/$', views.article)
+]
