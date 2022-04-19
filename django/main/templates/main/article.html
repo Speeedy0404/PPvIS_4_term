@@ -20,7 +20,10 @@
     {% else %}
         <p>Нет коментариев</p>
     {% endif %}
-    <p><img src="{% static "like1.png" %}" alt="" width="25px"
-                        height="25px">{{ article.article_likes }}</p>
     <hr>
+    <form action="/articles/addcomment/{{ article.id }}/" method="post">
+        {% csrf_token %}
+        {{ form.comments_text }}<br>
+        <button type="submit" class="btn btn-success">Добавить коментарий</button>
+    </form>
 {% endblock %}
