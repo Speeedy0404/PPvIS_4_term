@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% block title %}
+    Авторизация
+{% endblock %}
+
+{% block login %}
+    <h1>Авторизация в систему</h1>
+    <div class="row-cols-3">
+        <form action="/auth/login/" method="post">
+            {% csrf_token %}
+            <label for="username">Имя пользователя</label><br>
+            <input type="text" name="username" id="username"><br>
+            <label for="password">Пароль</label><br>
+            <input type="password" name="password" id="password"><br>
+            {% if login_error %}
+                <label class="errors">{{ login_error }}</label>
+            {% endif %}
+            <hr>
+            <button type="submit" class="btn btn-success">Войти</button>
+        </form>
+    </div>
+{% endblock %}

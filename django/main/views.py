@@ -3,16 +3,18 @@ from .models import Task, Article, Comments
 from .forms import TaskForm, CommentForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
+from django.contrib import auth
 
 
 # Create your views here.
 def index(request):
     tasks = Task.objects.order_by('-id')
-    return render(request, 'main/index.html', {'title': 'Главная страница сайта', 'tasks': tasks})
+    return render(request, 'main/index.html',
+                  {'title': 'Главная страница сайта', 'tasks': tasks, 'username': auth.get_user(request).username})
 
 
 def about(request):
-    return render(request, 'main/about.html')
+    return render(request, 'main/about.html', {'username': auth.get_user(request).username})
 
 
 def create(request):
@@ -28,14 +30,16 @@ def create(request):
 
     context = {
         'form': form,
-        'error': error
+        'error': error,
+        'username': auth.get_user(request).username
     }
     return render(request, 'main/create.html', context)
 
 
 def articles(request):
     articles = Article.objects.all()
-    return render(request, 'main/articles.html', {'title': 'Стена', 'articles': articles})
+    return render(request, 'main/articles.html',
+                  {'title': 'Стена', 'articles': articles, 'username': auth.get_user(request).username})
 
 
 def article(request, article_id=1):
@@ -45,6 +49,7 @@ def article(request, article_id=1):
         'form': comment_form,
         'article': Article.objects.get(id=article_id),
         'comments': Comments.objects.filter(comments_article_id=article_id),
+        'username': auth.get_user(request).username,
     }
 
     return render(request, 'main/article.html', args)

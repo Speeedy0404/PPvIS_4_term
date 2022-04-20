@@ -1,2 +1,9 @@
-.heart{filter: invert(12%) sepia(461%) saturate(7093%) hue-rotate(345deg)
-    brightness(83%) contrast(84%);}
+.heart {
+    filter: invert(12%) sepia(461%) saturate(7093%) hue-rotate(345deg) brightness(83%) contrast(84%);
+    height: 25px;
+    transition: all .5s ease-in-out;
+}
+
+.heart:hover {
+    height: 35px
+}

@@ -11,6 +11,7 @@
     <p>{{ article.article_text }}</p>
     <hr>
     <p>Коментарии</p>
+
     {% if comments %}
         {% for comment in comments %}
             <div class="alert alert-warning mt-2">
@@ -20,10 +21,16 @@
     {% else %}
         <p>Нет коментариев</p>
     {% endif %}
+
     <hr>
-    <form action="/articles/addcomment/{{ article.id }}/" method="post">
-        {% csrf_token %}
-        {{ form.comments_text }}<br>
-        <button type="submit" class="btn btn-success">Добавить коментарий</button>
-    </form>
+    {% if username %}
+        <form action="/articles/addcomment/{{ article.id }}/" method="post">
+            {% csrf_token %}
+            {{ form.comments_text }}<br>
+            <button type="submit" class="btn btn-success">Добавить коментарий</button>
+        </form>
+    {% else %}
+        <h6>Что бы добавить коментарий авторизуйтесь</h6>
+    {% endif %}
+
 {% endblock %}

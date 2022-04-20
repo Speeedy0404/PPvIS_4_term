@@ -1,15 +1,19 @@
 {% extends 'main/base.html' %}
 {% block title %}
-    Создать таск
+    Добавление таска
 {% endblock %}
 
 {% block contects %}
-    <h1>Создать таск</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.title }}<br>
-        {{ form.task }}<br>
-        <button type="submit" class="btn btn-success">Добавить</button>
-        <span>{{ error }}</span>
-    </form>
+    <h1>Добавить таск</h1>
+    {% if username %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.title }}<br>
+            {{ form.task }}<br>
+            <button type="submit" class="btn btn-success">Добавить</button>
+            <span>{{ error }}</span>
+        </form>
+    {% else %}
+        <h6>Что бы добавить таск авторизуйтесь</h6>
+    {% endif %}
 {% endblock %}
