@@ -4,6 +4,7 @@ from .forms import TaskForm, CommentForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
 from django.contrib import auth
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -36,10 +37,12 @@ def create(request):
     return render(request, 'main/create.html', context)
 
 
-def articles(request):
+def articles(request, page_number=1):
     articles = Article.objects.all()
+    current_page = Paginator(articles, 3)
     return render(request, 'main/articles.html',
-                  {'title': 'Стена', 'articles': articles, 'username': auth.get_user(request).username})
+                  {'title': 'Стена', 'articles': current_page.page(page_number),
+                   'username': auth.get_user(request).username})
 
 
 def article(request, article_id=1):
