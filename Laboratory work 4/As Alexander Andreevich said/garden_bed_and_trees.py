@@ -1,6 +1,7 @@
 from Vegetables_and_trees import *
 from weeds_vermin_illness import *
 from Save_and_del import *
+from view_cli import *
 
 
 class GardenBedAndTrees:
@@ -257,7 +258,7 @@ class GardenBedAndTrees:
                 for i in range(0, number):
                     print(GardenBedAndTrees.objects_in_garden(i, param))
 
-    def change_of_day(self, param: int, show_next_day_view=None, gui=False) -> None:
+    def change_of_day(self, param: int, show_next_day_view=View.show_next_day_view, gui=False) -> None:
         if param == 0:
             if gui:
                 name: list[str] = GardenBedAndTrees.names(self.__way)
@@ -324,8 +325,9 @@ class GardenBedAndTrees:
                     i: int = i + g
                     error: int = GardenBedAndTrees.__vegetables_in_garden[i].next_day(param)
                     if error == 0:
-                        print(GardenBedAndTrees.objects_in_garden(i, param))
-                        print("Сгнил из-за того что вы его не собрали")
+                        show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                           'Сгнил из-за того что вы его не собрали')
+
                         GardenBedAndTrees.deleting_information(i, param)
                         g += -1
 
@@ -342,8 +344,8 @@ class GardenBedAndTrees:
                     if GardenBedAndTrees.__vermin_of_vegetables[i].info_condition == "Появились вредители":
                         error: int = GardenBedAndTrees.__vegetables_in_garden[i].change_hp(param)
                         if error == 0:
-                            print(GardenBedAndTrees.objects_in_garden(i, param))
-                            print("Был утерян из-за вредителей")
+                            show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                               'Был утерян из-за вредителей')
                             GardenBedAndTrees.deleting_information(i, param)
                             g += -1
                             count1 = 1
@@ -352,8 +354,8 @@ class GardenBedAndTrees:
                         if GardenBedAndTrees.__illness_of_vegetables[i].info_condition == "Появилась болезнь":
                             error = GardenBedAndTrees.__vegetables_in_garden[i].change_hp(param)
                             if error == 0:
-                                print(GardenBedAndTrees.objects_in_garden(i, param))
-                                print("Был утерян из-за болезней")
+                                show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                                   'Был утерян из-за болезней')
                                 GardenBedAndTrees.deleting_information(i, param)
                                 g += -1
                                 count1 = 1
@@ -363,8 +365,8 @@ class GardenBedAndTrees:
                             i].info_condition == "Появились сорняки":
                             error = GardenBedAndTrees.__vegetables_in_garden[i].change_hp(param)
                             if error == 0:
-                                print(GardenBedAndTrees.objects_in_garden(i, param))
-                                print("Был утерян из-за сорняков")
+                                show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                                   'Был утерян из-за сорняков')
                                 GardenBedAndTrees.deleting_information(i, param)
                                 g += -1
                                 count1 = 1
@@ -426,8 +428,8 @@ class GardenBedAndTrees:
                     i: int = i + g
                     error: int = GardenBedAndTrees.__fruits_in_garden[i].next_day(param)
                     if error == 0:
-                        print(GardenBedAndTrees.objects_in_garden(i, param))
-                        print("Вы долго не собирали созревшие плоды с дерева из-за этого оно увяло")
+                        show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                           'Вы долго не собирали созревшие плоды с дерева из-за этого оно увяло')
                         GardenBedAndTrees.deleting_information(i, param)
                         g += -1
 
@@ -443,8 +445,8 @@ class GardenBedAndTrees:
                     if GardenBedAndTrees.__vermin_of_fruits[i].info_condition == "Появились вредители":
                         error: int = GardenBedAndTrees.__fruits_in_garden[i].change_hp(param)
                         if error == 0:
-                            print(GardenBedAndTrees.objects_in_garden(i, param))
-                            print("Было утерян из-за вредителей")
+                            show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                               'Было утерян из-за вредителей')
                             GardenBedAndTrees.deleting_information(i, param)
                             g += -1
                             count1 = 1
@@ -453,8 +455,8 @@ class GardenBedAndTrees:
                         if GardenBedAndTrees.__illness_of_fruits[i].info_condition == "Появилась болезнь":
                             error: int = GardenBedAndTrees.__fruits_in_garden[i].change_hp(param)
                             if error == 0:
-                                print(GardenBedAndTrees.objects_in_garden(i, param))
-                                print("Было утерян из-за болезней")
+                                show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                                   'Было утерян из-за болезней')
                                 GardenBedAndTrees.deleting_information(i, param)
                                 g += -1
                                 count1 = 1
@@ -464,7 +466,7 @@ class GardenBedAndTrees:
                             GardenBedAndTrees.the_objects_is_cured(i, param)
 
     @staticmethod
-    def changing_the_water_from_the_weather(weather, param: int, show_next_day_view=None, gui=False) -> None:
+    def changing_the_water_from_the_weather(weather, param: int, show_next_day_view=View.show_next_day_view, gui=False) -> None:
         weather_of_the_day = weather.info_weather
         if weather_of_the_day == "Cолнце":
             number: int = -2
@@ -483,7 +485,7 @@ class GardenBedAndTrees:
             GardenBedAndTrees.changing(number, param, show_next_day_view, gui)
 
     @staticmethod
-    def changing(number: int, param: int, show_next_day_view=None, gui=False) -> None:
+    def changing(number: int, param: int, show_next_day_view=View.show_next_day_view, gui=False) -> None:
         if param == 0:
             if gui:
                 way = 'vegetables'
@@ -509,8 +511,8 @@ class GardenBedAndTrees:
                     i = i + g
                     error: int = GardenBedAndTrees.__vegetables_in_garden[i].change_level_of_water(number, param)
                     if error == 0:
-                        print(GardenBedAndTrees.objects_in_garden(i, param))
-                        print(message)
+                        show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                           message)
                         GardenBedAndTrees.deleting_information(i, param)
                         g += -1
         elif param == 1:
@@ -538,8 +540,8 @@ class GardenBedAndTrees:
                     i = i + g
                     error: int = GardenBedAndTrees.__fruits_in_garden[i].change_level_of_water(number, param)
                     if error == 0:
-                        print(GardenBedAndTrees.objects_in_garden(i, param))
-                        print(message)
+                        show_next_day_view(GardenBedAndTrees.objects_in_garden(i, param),
+                                           message)
                         GardenBedAndTrees.deleting_information(i, param)
                         g += -1
 

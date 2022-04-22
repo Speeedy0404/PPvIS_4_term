@@ -1,17 +1,6 @@
 {
    "fruits": {
       "apple": {
-         "apple1": {
-            "name": "apple1",
-            "height": "\u041f\u043e\u044f\u0432\u0438\u043b\u0441\u044f \u043d\u0435 \u043a\u0440\u0435\u043f\u043a\u0438\u0439 \u0441\u0442\u0432\u043e\u043b",
-            "level_water": 4,
-            "day": 13,
-            "how_many_days_to_grow": 24,
-            "how_many_days_until_the_next_stage": 4,
-            "hp": 6,
-            "condition_vermin": "\u041f\u043e\u044f\u0432\u0438\u043b\u0438\u0441\u044c \u0432\u0440\u0435\u0434\u0438\u0442\u0435\u043b\u0438",
-            "condition_illness": "\u041f\u043e\u044f\u0432\u0438\u043b\u0430\u0441\u044c \u0431\u043e\u043b\u0435\u0437\u043d\u044c"
-         },
          "apple2": {
             "name": "apple2",
             "height": "\u0421\u0435\u043c\u0435\u0447\u043a\u043e \u0432 \u0437\u0435\u043c\u043b\u0435",
@@ -32,25 +21,27 @@
             "height": "\u041f\u0435\u0440\u0432\u044b\u0435 2-3 \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0445 \u043b\u0438\u0441\u0442\u0430",
             "level_water": 5,
             "day": 0,
+            "how_many_days_to_grow": 12,
+            "how_many_days_until_the_next_stage": 2,
+            "hp": 9,
+            "condition_vermin": "\u0412\u0440\u0435\u0434\u0438\u0442\u0435\u043b\u0435\u0439 \u043d\u0435\u0442",
+            "condition_illness": "\u0411\u043e\u043b\u0435\u0437\u043d\u0435\u0439 \u043d\u0435\u0442",
+            "condition_weeds": "\u0421\u043e\u0440\u043d\u044f\u043a\u043e\u0432 \u043d\u0435\u0442"
+         },
+         "cucumber3": {
+            "name": "cucumber3",
+            "height": "\u041f\u0435\u0440\u0432\u044b\u0435 2-3 \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0445 \u043b\u0438\u0441\u0442\u0430",
+            "level_water": 5,
+            "day": 0,
             "how_many_days_to_grow": 18,
             "how_many_days_until_the_next_stage": 3,
             "hp": 9,
             "condition_vermin": "\u0412\u0440\u0435\u0434\u0438\u0442\u0435\u043b\u0435\u0439 \u043d\u0435\u0442",
             "condition_illness": "\u0411\u043e\u043b\u0435\u0437\u043d\u0435\u0439 \u043d\u0435\u0442",
             "condition_weeds": "\u0421\u043e\u0440\u043d\u044f\u043a\u043e\u0432 \u043d\u0435\u0442"
-         },
-         "cucumber2": {
-            "name": "cucumber2",
-            "height": "\u041f\u0435\u0440\u0432\u044b\u0435 2-3 \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0445 \u043b\u0438\u0441\u0442\u0430",
-            "level_water": 5,
-            "day": 0,
-            "how_many_days_to_grow": 24,
-            "how_many_days_until_the_next_stage": 4,
-            "hp": 9,
-            "condition_vermin": "\u0412\u0440\u0435\u0434\u0438\u0442\u0435\u043b\u0435\u0439 \u043d\u0435\u0442",
-            "condition_illness": "\u0411\u043e\u043b\u0435\u0437\u043d\u0435\u0439 \u043d\u0435\u0442",
-            "condition_weeds": "\u0421\u043e\u0440\u043d\u044f\u043a\u043e\u0432 \u043d\u0435\u0442"
          }
-      }
+      },
+      "cucumbre": {},
+      "potato": {}
    }
 }
