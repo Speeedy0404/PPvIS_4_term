@@ -107,7 +107,6 @@ class GrowthAndDeath(SeedsAndTrees):
             ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param, self.__how_many_days_to_grow,
                                                                     self.__how_many_days_until_the_next_stage)
 
-
     def del_object(self, param: int) -> None:
         name = self.info_name
 

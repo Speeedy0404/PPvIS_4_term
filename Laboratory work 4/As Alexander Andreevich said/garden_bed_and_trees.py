@@ -22,74 +22,74 @@ class GardenBedAndTrees:
         GardenBedAndTrees.return_illness_to_the_garden(names_of_all_objects, param)
 
     @staticmethod
-    def objects_in_garden(i: int, param: int) -> str:
+    def objects_in_garden(position: int, param: int) -> str:
         if param == 0:
-            return GardenBedAndTrees.__vegetables_in_garden[i].info_name
+            return GardenBedAndTrees.__vegetables_in_garden[position].info_name
         elif param == 1:
-            return GardenBedAndTrees.__fruits_in_garden[i].info_name
+            return GardenBedAndTrees.__fruits_in_garden[position].info_name
 
     @staticmethod
-    def check_weeds(i: int) -> int:
-        if GardenBedAndTrees.__weeds_of_vegetables[i].info_condition == "Сорняков нет":
+    def check_weeds(position: int) -> int:
+        if GardenBedAndTrees.__weeds_of_vegetables[position].info_condition == "Сорняков нет":
             return 0
         else:
             return 1
 
     @staticmethod
-    def regeneration_weeds(i: int, param: int) -> None:
-        GardenBedAndTrees.__weeds_of_vegetables[i].remove_condition(param)
+    def regeneration_weeds(position: int, param: int) -> None:
+        GardenBedAndTrees.__weeds_of_vegetables[position].remove_condition(param)
 
     @staticmethod
-    def check_illness(i: int, param: int) -> int:
+    def check_illness(position: int, param: int) -> int:
         if param == 0:
-            if GardenBedAndTrees.__illness_of_vegetables[i].info_condition == "Болезней нет":
+            if GardenBedAndTrees.__illness_of_vegetables[position].info_condition == "Болезней нет":
                 return 0
             else:
                 return 1
         elif param == 1:
-            if GardenBedAndTrees.__illness_of_fruits[i].info_condition == "Болезней нет":
-                return 0
-            else:
-                return 1
-
-    @staticmethod
-    def regeneration_illness(i: int, param: int) -> None:
-        if param == 0:
-            GardenBedAndTrees.__illness_of_vegetables[i].remove_condition(param)
-        elif param == 1:
-            GardenBedAndTrees.__illness_of_fruits[i].remove_condition(param)
-
-    @staticmethod
-    def check_vermin(i: int, param: int) -> int:
-        if param == 0:
-            if GardenBedAndTrees.__vermin_of_vegetables[i].info_condition == "Вредителей нет":
-                return 0
-            else:
-                return 1
-        elif param == 1:
-            if GardenBedAndTrees.__vermin_of_fruits[i].info_condition == "Вредителей нет":
+            if GardenBedAndTrees.__illness_of_fruits[position].info_condition == "Болезней нет":
                 return 0
             else:
                 return 1
 
     @staticmethod
-    def regeneration_vermin(i: int, param: int) -> None:
+    def regeneration_illness(position: int, param: int) -> None:
         if param == 0:
-            GardenBedAndTrees.__vermin_of_vegetables[i].remove_condition(param)
+            GardenBedAndTrees.__illness_of_vegetables[position].remove_condition(param)
         elif param == 1:
-            GardenBedAndTrees.__vermin_of_fruits[i].remove_condition(param)
+            GardenBedAndTrees.__illness_of_fruits[position].remove_condition(param)
 
     @staticmethod
-    def check_level_of_water(i: int, param: int) -> int:
+    def check_vermin(position: int, param: int) -> int:
         if param == 0:
-            number = GardenBedAndTrees.__vegetables_in_garden[i].info_lever_of_water
+            if GardenBedAndTrees.__vermin_of_vegetables[position].info_condition == "Вредителей нет":
+                return 0
+            else:
+                return 1
+        elif param == 1:
+            if GardenBedAndTrees.__vermin_of_fruits[position].info_condition == "Вредителей нет":
+                return 0
+            else:
+                return 1
+
+    @staticmethod
+    def regeneration_vermin(position: int, param: int) -> None:
+        if param == 0:
+            GardenBedAndTrees.__vermin_of_vegetables[position].remove_condition(param)
+        elif param == 1:
+            GardenBedAndTrees.__vermin_of_fruits[position].remove_condition(param)
+
+    @staticmethod
+    def check_level_of_water(position: int, param: int) -> int:
+        if param == 0:
+            number = GardenBedAndTrees.__vegetables_in_garden[position].info_lever_of_water
             if number == 5:
                 return 0
             else:
                 number = 5 - number
                 return number
         elif param == 1:
-            number = GardenBedAndTrees.__fruits_in_garden[i].info_lever_of_water
+            number = GardenBedAndTrees.__fruits_in_garden[position].info_lever_of_water
             if number == 5:
                 return 0
             else:
@@ -97,22 +97,22 @@ class GardenBedAndTrees:
                 return number
 
     @staticmethod
-    def regenerate_level_of_water(i_t: int, i: int, param: int) -> None:
+    def regenerate_level_of_water(position: int, level_of_water: int, param: int) -> None:
         if param == 0:
-            GardenBedAndTrees.__vegetables_in_garden[i_t].change_level_of_water(i, param)
+            GardenBedAndTrees.__vegetables_in_garden[position].change_level_of_water(level_of_water, param)
         elif param == 1:
-            GardenBedAndTrees.__fruits_in_garden[i_t].change_level_of_water(i, param)
+            GardenBedAndTrees.__fruits_in_garden[position].change_level_of_water(level_of_water, param)
 
     @staticmethod
-    def check_height(i: int, param: int) -> str:
+    def check_height(position: int, param: int) -> str:
         if param == 0:
-            return GardenBedAndTrees.__vegetables_in_garden[i].info_height
+            return GardenBedAndTrees.__vegetables_in_garden[position].info_height
 
         if param == 1:
-            return GardenBedAndTrees.__fruits_in_garden[i].info_height
+            return GardenBedAndTrees.__fruits_in_garden[position].info_height
 
     @staticmethod
-    def change_height(i_t: int, param: int) -> None:
+    def change_height(position: int, param: int) -> None:
         if param == 0:
             growth_stage: tuple[str, str, str, str, str, str, str] = ("Первые 2-3 настоящих листа", "Рост",
                                                                       "Фаза активного вегетационного роста", "Цветение",
@@ -120,15 +120,15 @@ class GardenBedAndTrees:
                                                                       "Плод созрел")
             i_delta: int = 0
             i_growth: int = 0
-            height_delta = GardenBedAndTrees.__vegetables_in_garden[i_t].info_height
-            how_many = GardenBedAndTrees.__vegetables_in_garden[i_t].info_how_many_days_until_the_next_stage
+            height_delta = GardenBedAndTrees.__vegetables_in_garden[position].info_height
+            how_many = GardenBedAndTrees.__vegetables_in_garden[position].info_how_many_days_until_the_next_stage
             for i in range(0, 7):
                 if height_delta == growth_stage[i]:
                     i_delta: int = how_many * (i + 1)
                     i_growth: int = i + 1
                     break
-            GardenBedAndTrees.__vegetables_in_garden[i_t].change_day_today(i_delta, param)
-            GardenBedAndTrees.__vegetables_in_garden[i_t].fetal_growth(i_growth, param)
+            GardenBedAndTrees.__vegetables_in_garden[position].change_day_today(i_delta, param)
+            GardenBedAndTrees.__vegetables_in_garden[position].fetal_growth(i_growth, param)
 
         elif param == 1:
             growth_stage: tuple[str, str, str, str, str, str, str] = ("Семечко в земле", "Рост",
@@ -138,15 +138,15 @@ class GardenBedAndTrees:
                                                                       "Период плодоношения")
             i_delta: int = 0
             i_growth: int = 0
-            height_delta: str = GardenBedAndTrees.__fruits_in_garden[i_t].info_height
-            how_many: int = GardenBedAndTrees.__fruits_in_garden[i_t].info_how_many_days_until_the_next_stage
+            height_delta: str = GardenBedAndTrees.__fruits_in_garden[position].info_height
+            how_many: int = GardenBedAndTrees.__fruits_in_garden[position].info_how_many_days_until_the_next_stage
             for i in range(0, 7):
                 if height_delta == growth_stage[i]:
                     i_delta: int = how_many * (i + 1)
                     i_growth: int = i + 1
                     break
-            GardenBedAndTrees.__fruits_in_garden[i_t].change_day_today(i_delta, param)
-            GardenBedAndTrees.__fruits_in_garden[i_t].fetal_growth(i_growth, param)
+            GardenBedAndTrees.__fruits_in_garden[position].change_day_today(i_delta, param)
+            GardenBedAndTrees.__fruits_in_garden[position].fetal_growth(i_growth, param)
 
     @staticmethod
     def the_objects_is_cured(i: int, param: int) -> None:
@@ -198,22 +198,22 @@ class GardenBedAndTrees:
             GardenBedAndTrees.__vegetables_in_garden.append(Vegetables(name, 1, param))
             names = GardenBedAndTrees.names(self.__way)
 
-            GardenBedAndTrees.__vermin_of_vegetables.append(Vermin(Globals.name_str, creation=1, param=param))
-            GardenBedAndTrees.__illness_of_vegetables.append(Illness(Globals.name_str, creation=1, param=param))
-            GardenBedAndTrees.__weeds_of_vegetables.append(Weeds(Globals.name_str, creation=1, param=param))
+            GardenBedAndTrees.__vermin_of_vegetables.append(Vermin(Globals.name_of_object, creation=1, param=param))
+            GardenBedAndTrees.__illness_of_vegetables.append(Illness(Globals.name_of_object, creation=1, param=param))
+            GardenBedAndTrees.__weeds_of_vegetables.append(Weeds(Globals.name_of_object, creation=1, param=param))
 
             number = len(GardenBedAndTrees.__vegetables_in_garden) - 1
-            GardenBedAndTrees.__vegetables_in_garden[number].info_name = Globals.name_str
+            GardenBedAndTrees.__vegetables_in_garden[number].info_name = Globals.name_of_object
 
         elif param == 1:
             GardenBedAndTrees.__fruits_in_garden.append(Fruits(name, 1, param))
             names = GardenBedAndTrees.names(self.__way)
 
-            GardenBedAndTrees.__vermin_of_fruits.append(Vermin(Globals.name_str, creation=1, param=param))
-            GardenBedAndTrees.__illness_of_fruits.append(Illness(Globals.name_str, creation=1, param=param))
+            GardenBedAndTrees.__vermin_of_fruits.append(Vermin(Globals.name_of_object, creation=1, param=param))
+            GardenBedAndTrees.__illness_of_fruits.append(Illness(Globals.name_of_object, creation=1, param=param))
 
             number = len(GardenBedAndTrees.__fruits_in_garden) - 1
-            GardenBedAndTrees.__fruits_in_garden[number].info_name = Globals.name_str
+            GardenBedAndTrees.__fruits_in_garden[number].info_name = Globals.name_of_object
 
     @staticmethod
     def show_information_about_objects(param: int, gui=False, root=None, list=None, label=None) -> None:
@@ -501,7 +501,7 @@ class GardenBedAndTrees:
                                            message)
                         GardenBedAndTrees.deleting_information(i, param)
                         g += -1
-            elif gui == False:
+            elif gui is False:
                 way = 'vegetables'
                 message = "Рассада усохла из-за нехватки воды"
                 name: list[str] = GardenBedAndTrees.names(way)
@@ -530,7 +530,7 @@ class GardenBedAndTrees:
                                            message)
                         GardenBedAndTrees.deleting_information(i, param)
                         g += -1
-            elif gui == False:
+            elif gui is False:
                 way = 'fruits'
                 message = "Дерево усохло из-за нехватки воды"
                 name: list[str] = GardenBedAndTrees.names(way)
@@ -546,14 +546,14 @@ class GardenBedAndTrees:
                         g += -1
 
     @staticmethod
-    def deleting_information(i: int, param: int) -> None:
+    def deleting_information(position: int, param: int) -> None:
         if param == 0:
             way = 'vegetables_in_garden.txt'
-            GardenBedAndTrees.__vegetables_in_garden[i].del_object(param)
-            GardenBedAndTrees.__vegetables_in_garden.pop(i)
-            GardenBedAndTrees.__vermin_of_vegetables.pop(i)
-            GardenBedAndTrees.__illness_of_vegetables.pop(i)
-            GardenBedAndTrees.__weeds_of_vegetables.pop(i)
+            GardenBedAndTrees.__vegetables_in_garden[position].del_object(param)
+            GardenBedAndTrees.__vegetables_in_garden.pop(position)
+            GardenBedAndTrees.__vermin_of_vegetables.pop(position)
+            GardenBedAndTrees.__illness_of_vegetables.pop(position)
+            GardenBedAndTrees.__weeds_of_vegetables.pop(position)
             length: int = len(GardenBedAndTrees.__vegetables_in_garden)
             names = []
             for i in range(0, length):
@@ -561,10 +561,10 @@ class GardenBedAndTrees:
             ReadOverwritingGardenBedAndTrees.overwriting(way, length, names)
         elif param == 1:
             way = 'fruits_in_garden.txt'
-            GardenBedAndTrees.__fruits_in_garden[i].del_object(param)
-            GardenBedAndTrees.__fruits_in_garden.pop(i)
-            GardenBedAndTrees.__vermin_of_fruits.pop(i)
-            GardenBedAndTrees.__illness_of_fruits.pop(i)
+            GardenBedAndTrees.__fruits_in_garden[position].del_object(param)
+            GardenBedAndTrees.__fruits_in_garden.pop(position)
+            GardenBedAndTrees.__vermin_of_fruits.pop(position)
+            GardenBedAndTrees.__illness_of_fruits.pop(position)
             length: int = len(GardenBedAndTrees.__fruits_in_garden)
             names = []
             for i in range(0, length):
@@ -620,7 +620,7 @@ class GardenBedAndTrees:
                 list_objects.append(label(text="---------------------------------------"))
                 root.inffo.add_widget(list_objects[it])
 
-            elif gui == False:
+            elif gui is False:
                 way = 'vegetables'
                 print("---------------------------------------")
                 print("Вот информация о состоянии каждого вида: ")
@@ -679,7 +679,7 @@ class GardenBedAndTrees:
                 list_objects.append(label(text="---------------------------------------"))
                 root.fruits.add_widget(list_objects[it])
 
-            elif gui == False:
+            elif gui is False:
                 way = 'fruits'
                 print("---------------------------------------")
                 print("Вот информация о состоянии каждого дерева: ")

@@ -2,7 +2,7 @@ import json
 
 
 class Globals:
-    name_str = None
+    name_of_object = None
 
 
 class ReadOverwritingSeeds:
@@ -60,7 +60,7 @@ class ReadOverwritingSeeds:
                     "level_water": level_water
                 }
 
-                Globals.name_str = name_del
+                Globals.name_of_object = name_del
             else:
 
                 name_del = name + '1'
@@ -72,7 +72,7 @@ class ReadOverwritingSeeds:
                     }
                 }
 
-                Globals.name_str = name_del
+                Globals.name_of_object = name_del
 
         with open("garden_area.json", 'w') as file:
             json.dump(data, file, indent=3)
@@ -131,12 +131,12 @@ class ReadOverwritingGrowthAndDeath:
             hp = 9
 
             for item in data[del_name]:
-                if Globals.name_str in data[del_name][item]:
-                    data[del_name][item][Globals.name_str]["day"] = day
-                    data[del_name][item][Globals.name_str]["how_many_days_to_grow"] = how_many_days_to_grow
-                    data[del_name][item][Globals.name_str][
+                if Globals.name_of_object in data[del_name][item]:
+                    data[del_name][item][Globals.name_of_object]["day"] = day
+                    data[del_name][item][Globals.name_of_object]["how_many_days_to_grow"] = how_many_days_to_grow
+                    data[del_name][item][Globals.name_of_object][
                         "how_many_days_until_the_next_stage"] = how_many_days_until_the_next_stage
-                    data[del_name][item][Globals.name_str]["hp"] = hp
+                    data[del_name][item][Globals.name_of_object]["hp"] = hp
 
             with open("garden_area.json", 'w') as file:
                 json.dump(data, file, indent=3)

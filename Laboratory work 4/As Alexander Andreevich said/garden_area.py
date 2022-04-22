@@ -115,7 +115,7 @@ class GardenArea:
                                               "---------------------------------------")
         elif seedlingsdel:
             value: bool = False
-            i_d: int = 0
+            position_of_vegetable: int = 0
             name: list[str] = SeedBed.names('vegetables')
             count: int = len(name)
             while not value:
@@ -125,11 +125,11 @@ class GardenArea:
                         for i in range(0, count):
                             if object_of_the_plot == name[i]:
                                 value = True
-                                i_d = i
+                                position_of_vegetable = i
                                 break
                         if value is False:
                             raise NameError
-                        SeedBed.deleting_information(i_d, param=0)
+                        SeedBed.deleting_information(position_of_vegetable, param=0)
                         show_status_view("Успешно выкопали рассаду")
 
                     except NameError:
@@ -143,11 +143,11 @@ class GardenArea:
                         for i in range(0, count):
                             if object_of_the_plot == name[i]:
                                 value = True
-                                i_d = i
+                                position_of_vegetable = i
                                 break
                         if value is False:
                             raise NameError
-                        SeedBed.deleting_information(i_d, param=0)
+                        SeedBed.deleting_information(position_of_vegetable, param=0)
                         View.show_status_view("---------------------------------------",
                                               "Успешно выкопали рассаду",
                                               "---------------------------------------")
@@ -158,7 +158,7 @@ class GardenArea:
                                               "---------------------------------------")
         elif treedel:
             value: bool = False
-            i_t: int = 0
+            position_of_fruits: int = 0
             name: list[str] = Orchard.names('fruits')
             count: int = len(name)
             while not value:
@@ -168,11 +168,11 @@ class GardenArea:
                         for i in range(0, count):
                             if object_of_the_plot == name[i]:
                                 value = True
-                                i_t = i
+                                position_of_fruits = i
                                 break
                         if value is False:
                             raise NameError
-                        Orchard.deleting_information(i_t, param=1)
+                        Orchard.deleting_information(position_of_fruits, param=1)
                         show_status_view("Успешно выкорчевали дерево")
 
                     except NameError:
@@ -185,11 +185,11 @@ class GardenArea:
                         for i in range(0, count):
                             if object_of_the_plot == name[i]:
                                 value = True
-                                i_t = i
+                                position_of_fruits = i
                                 break
                         if value is False:
                             raise NameError
-                        Orchard.deleting_information(i_t, param=1)
+                        Orchard.deleting_information(position_of_fruits, param=1)
                         View.show_status_view("---------------------------------------",
                                               "Успешно выкорчевали дерево",
                                               "---------------------------------------")
@@ -217,47 +217,47 @@ class GardenArea:
 
     @staticmethod
     def collection(gui=False, show_status_view=None, input_gui=None) -> None:
-        i_g = None
-        i_t = None
+        position_of_vegetable = None
+        position_of_fruits = None
         value: bool = False
         object_of_the_plot: str = input_gui
         while not value:
             if gui:
                 try:
-                    name: list[str] = GardenArea.get_list_of_vegetables()
-                    count: int = GardenArea.get_length(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    name: list[str] = SeedBed.names('vegetables')
+                    count: int = len(name)
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
+                    elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
                         show_status_view("Рассада успешно собрана")
-                        SeedBed.deleting_information(i_g, param=0)
+                        SeedBed.deleting_information(position_of_vegetable, param=0)
                     else:
 
                         show_status_view("Эта рассада еще не выросла")
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
+                    elif Orchard.check_height(position_of_fruits, param=1) == "Период плодоношения":
 
                         show_status_view("Плоды дерева успешно собраны")
 
-                        Orchard.deleting_information(i_t, param=1)
+                        Orchard.deleting_information(position_of_fruits, param=1)
 
                     else:
 
@@ -273,42 +273,42 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
+                    elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
 
                         View.show_status_view("---------------------------------------", "Рассада успешно собрана",
                                               "---------------------------------------")
-                        SeedBed.deleting_information(i_g, param=0)
+                        SeedBed.deleting_information(position_of_vegetable, param=0)
 
                     else:
                         View.show_status_view("---------------------------------------", "Эта рассада еще не выросла",
                                               "---------------------------------------")
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
+                    elif Orchard.check_height(position_of_fruits, param=1) == "Период плодоношения":
 
                         View.show_status_view("---------------------------------------", "Плоды дерева успешно собраны",
                                               "---------------------------------------")
 
-                        Orchard.deleting_information(i_t, param=1)
+                        Orchard.deleting_information(position_of_fruits, param=1)
 
                     else:
                         View.show_status_view("---------------------------------------", "Это дерево еще не созрело",
@@ -321,7 +321,7 @@ class GardenArea:
 
     @staticmethod
     def weeding_seedlings(weeding, gui=False, show_status_view=None, input_gui=None) -> None:
-        i = None
+        position_of_vegetable = None
         value: bool = False
         while not value:
             if gui:
@@ -330,19 +330,19 @@ class GardenArea:
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
                     value = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
-                    if i is None:
+                    if position_of_vegetable is None:
                         raise NameError
 
-                    if SeedBed.check_weeds(i) == 0:
+                    if SeedBed.check_weeds(position_of_vegetable) == 0:
                         show_status_view("Этой рассаде прополка не требуется")
 
                     else:
                         weeding.using_actions(gui, show_status_view)
-                        SeedBed.regeneration_weeds(i, param=0)
+                        SeedBed.regeneration_weeds(position_of_vegetable, param=0)
 
                 except NameError:
                     show_status_view("Вы должны выбрать рассаду которая растёт на вашем участке")
@@ -353,14 +353,14 @@ class GardenArea:
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
                     value = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
-                    if i is None:
+                    if position_of_vegetable is None:
                         raise NameError
 
-                    if SeedBed.check_weeds(i) == 0:
+                    if SeedBed.check_weeds(position_of_vegetable) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этой рассаде прополка не требуется",
                                               "---------------------------------------")
@@ -370,7 +370,7 @@ class GardenArea:
                                               "",
                                               "---------------------------------------")
                         weeding.using_actions()
-                        SeedBed.regeneration_weeds(i, param=0)
+                        SeedBed.regeneration_weeds(position_of_vegetable, param=0)
 
                 except NameError:
                     View.show_status_view("---------------------------------------",
@@ -379,8 +379,8 @@ class GardenArea:
 
     @staticmethod
     def watering_the_garden_plot(watering, gui=False, show_status_view=None, input_gui=None) -> None:
-        i_g = None
-        i_t = None
+        position_of_vegetable = None
+        position_of_fruits = None
         value: bool = False
         object_of_the_plot: str = input_gui
         while not value:
@@ -389,42 +389,44 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_level_of_water(i_g, param=0) == 0:
+                    elif SeedBed.check_level_of_water(position_of_vegetable, param=0) == 0:
 
                         show_status_view("Этой рассаде поливка не требуется. Земля полностью пропитана водой")
 
                     else:
                         watering.using_actions(gui, show_status_view)
-                        SeedBed.regenerate_level_of_water(i_g, SeedBed.check_level_of_water(i_g, param=0),
+                        SeedBed.regenerate_level_of_water(position_of_vegetable,
+                                                          SeedBed.check_level_of_water(position_of_vegetable, param=0),
                                                           param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_level_of_water(i_t, param=1) == 0:
+                    elif Orchard.check_level_of_water(position_of_fruits, param=1) == 0:
                         show_status_view("Этому дереву поливка не требуется. Земля полностью пропитана водой")
 
                     else:
 
                         watering.using_actions(gui, show_status_view)
-                        Orchard.regenerate_level_of_water(i_t, Orchard.check_level_of_water(i_t, param=1),
+                        Orchard.regenerate_level_of_water(position_of_fruits,
+                                                          Orchard.check_level_of_water(position_of_fruits, param=1),
                                                           param=1)
 
                 except NameError:
@@ -436,25 +438,25 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_level_of_water(i_g, param=0) == 0:
+                    elif SeedBed.check_level_of_water(position_of_vegetable, param=0) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этой рассаде поливка не требуется. Земля полностью пропитана водой",
                                               "---------------------------------------")
@@ -463,12 +465,13 @@ class GardenArea:
                                               "",
                                               "---------------------------------------")
                         watering.using_actions()
-                        SeedBed.regenerate_level_of_water(i_g, SeedBed.check_level_of_water(i_g, param=0),
+                        SeedBed.regenerate_level_of_water(position_of_vegetable,
+                                                          SeedBed.check_level_of_water(position_of_vegetable, param=0),
                                                           param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_level_of_water(i_t, param=1) == 0:
+                    elif Orchard.check_level_of_water(position_of_fruits, param=1) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этому дереву поливка не требуется. Земля полностью пропитана водой",
                                               "---------------------------------------")
@@ -478,7 +481,8 @@ class GardenArea:
                                               "---------------------------------------")
 
                         watering.using_actions()
-                        Orchard.regenerate_level_of_water(i_t, Orchard.check_level_of_water(i_t, param=1),
+                        Orchard.regenerate_level_of_water(position_of_fruits,
+                                                          Orchard.check_level_of_water(position_of_fruits, param=1),
                                                           param=1)
 
                 except NameError:
@@ -488,8 +492,8 @@ class GardenArea:
 
     @staticmethod
     def cure_something_in_a_garden_plot(gui=False, show_status_view=None, input_gui=None) -> None:
-        i_g = None
-        i_t = None
+        position_of_vegetable = None
+        position_of_fruits = None
         value: bool = False
         object_of_the_plot: str = input_gui
         while not value:
@@ -498,42 +502,42 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_illness(i_g, param=0) == 0:
+                    elif SeedBed.check_illness(position_of_vegetable, param=0) == 0:
                         show_status_view("Этой рассаде лечение не требуется")
 
                     else:
 
                         show_status_view("Рассада успешно вылечена")
 
-                        SeedBed.regeneration_illness(i_g, param=0)
+                        SeedBed.regeneration_illness(position_of_vegetable, param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_illness(i_t, param=1) == 0:
+                    elif Orchard.check_illness(position_of_fruits, param=1) == 0:
                         show_status_view("Этому дереву лечение не требуется")
                     else:
 
                         show_status_view("Дерево успешно вылечено")
 
-                        Orchard.regeneration_illness(i_t, param=1)
+                        Orchard.regeneration_illness(position_of_fruits, param=1)
 
                 except NameError:
 
@@ -545,25 +549,25 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_illness(i_g, param=0) == 0:
+                    elif SeedBed.check_illness(position_of_vegetable, param=0) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этой рассаде лечение не требуется",
                                               "---------------------------------------")
@@ -571,11 +575,11 @@ class GardenArea:
                         View.show_status_view("---------------------------------------",
                                               "Рассада успешно вылечена",
                                               "---------------------------------------")
-                        SeedBed.regeneration_illness(i_g, param=0)
+                        SeedBed.regeneration_illness(position_of_vegetable, param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_illness(i_t, param=1) == 0:
+                    elif Orchard.check_illness(position_of_fruits, param=1) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этому дереву лечение не требуется",
                                               "---------------------------------------")
@@ -583,7 +587,7 @@ class GardenArea:
                         View.show_status_view("---------------------------------------",
                                               "Дерево успешно вылечено",
                                               "---------------------------------------")
-                        Orchard.regeneration_illness(i_t, param=1)
+                        Orchard.regeneration_illness(position_of_fruits, param=1)
 
                 except NameError:
                     View.show_status_view("---------------------------------------",
@@ -592,8 +596,8 @@ class GardenArea:
 
     @staticmethod
     def get_rid_of_pests(gui=False, show_status_view=None, input_gui=None) -> None:
-        i_g = None
-        i_t = None
+        position_of_vegetable = None
+        position_of_fruits = None
         value: bool = False
         object_of_the_plot: str = input_gui
         while not value:
@@ -602,36 +606,36 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_vermin(i_g, param=0) == 0:
+                    elif SeedBed.check_vermin(position_of_vegetable, param=0) == 0:
                         show_status_view("Этой рассаде не требуется избавление от вредителей")
 
                     else:
 
                         show_status_view("Рассада успешно избавлена от вредителей")
 
-                        SeedBed.regeneration_vermin(i_g, param=0)
+                        SeedBed.regeneration_vermin(position_of_vegetable, param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_vermin(i_t, param=1) == 0:
+                    elif Orchard.check_vermin(position_of_fruits, param=1) == 0:
 
                         show_status_view("Этому дереву не требуется избавление от вредителей")
 
@@ -639,7 +643,7 @@ class GardenArea:
 
                         show_status_view("Дерево успешно избавдено от вредителей")
 
-                        Orchard.regeneration_vermin(i_t, param=1)
+                        Orchard.regeneration_vermin(position_of_fruits, param=1)
 
                 except NameError:
 
@@ -651,25 +655,25 @@ class GardenArea:
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_vermin(i_g, param=0) == 0:
+                    elif SeedBed.check_vermin(position_of_vegetable, param=0) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этой рассаде не требуется избавление от вредителей",
                                               "---------------------------------------")
@@ -678,11 +682,11 @@ class GardenArea:
                                               "Рассада успешно избавлена от вредителей",
                                               "---------------------------------------")
 
-                        SeedBed.regeneration_vermin(i_g, param=0)
+                        SeedBed.regeneration_vermin(position_of_vegetable, param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_vermin(i_t, param=1) == 0:
+                    elif Orchard.check_vermin(position_of_fruits, param=1) == 0:
                         View.show_status_view("---------------------------------------",
                                               "Этому дереву не требуется избавление от вредителей",
                                               "---------------------------------------")
@@ -690,7 +694,7 @@ class GardenArea:
                         View.show_status_view("---------------------------------------",
                                               "Дерево успешно избавлено от вредителей",
                                               "---------------------------------------")
-                        Orchard.regeneration_vermin(i_t, param=1)
+                        Orchard.regeneration_vermin(position_of_fruits, param=1)
 
                 except NameError:
                     View.show_status_view("---------------------------------------",
@@ -699,8 +703,8 @@ class GardenArea:
 
     @staticmethod
     def use_fertillizer(fertillizer, gui=False, show_status_view=None, input_gui=None) -> None:
-        i_g = None
-        i_t = None
+        position_of_vegetable = None
+        position_of_fruits = None
         value: bool = False
         while not value:
             if gui:
@@ -708,43 +712,43 @@ class GardenArea:
                     object_of_the_plot: str = input_gui
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
+                    elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
 
                         show_status_view("Рассада уже созрела и не нуждаеться в удобрении")
 
                     else:
 
                         fertillizer.using_actions(gui, show_status_view)
-                        SeedBed.change_height(i_g, param=0)
+                        SeedBed.change_height(position_of_vegetable, param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
+                    elif Orchard.check_height(position_of_fruits, param=1) == "Период плодоношения":
 
                         show_status_view("Плоды дерева уже созрели. Дерево не нуждаеться в удобрении")
 
                     else:
 
                         fertillizer.using_actions(gui, show_status_view)
-                        Orchard.change_height(i_t, param=1)
+                        Orchard.change_height(position_of_fruits, param=1)
 
                 except NameError:
                     show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
@@ -754,25 +758,25 @@ class GardenArea:
                     object_of_the_plot: str = input("Какую рассаду или дерево вы хотите удобрить? -> ")
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_g = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_vegetable = changed_position
                             break
 
                     name: list[str] = Orchard.names('fruits')
                     count: int = len(name)
                     value: bool = True
-                    for delta_i in range(0, count):
-                        if object_of_the_plot == name[delta_i]:
-                            i_t = delta_i
+                    for changed_position in range(0, count):
+                        if object_of_the_plot == name[changed_position]:
+                            position_of_fruits = changed_position
                             break
 
-                    if i_g is None and i_t is None:
+                    if position_of_vegetable is None and position_of_fruits is None:
                         raise NameError
 
-                    if i_g is None:
+                    if position_of_vegetable is None:
                         pass
-                    elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
+                    elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
                         View.show_status_view("---------------------------------------",
                                               "Рассада уже созрела и не нуждаеться в удобрении",
                                               "---------------------------------------")
@@ -781,11 +785,11 @@ class GardenArea:
                                               "",
                                               "---------------------------------------")
                         fertillizer.using_actions()
-                        SeedBed.change_height(i_g, param=0)
+                        SeedBed.change_height(position_of_vegetable, param=0)
 
-                    if i_t is None:
+                    if position_of_fruits is None:
                         pass
-                    elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
+                    elif Orchard.check_height(position_of_fruits, param=1) == "Период плодоношения":
                         View.show_status_view("---------------------------------------",
                                               "Плоды дерева уже созрели. Дерево не нуждаеться в удобрении",
                                               "---------------------------------------")
@@ -794,7 +798,7 @@ class GardenArea:
                                               "",
                                               "---------------------------------------")
                         fertillizer.using_actions()
-                        Orchard.change_height(i_t, param=1)
+                        Orchard.change_height(position_of_fruits, param=1)
 
                 except NameError:
                     View.show_status_view("---------------------------------------",
@@ -810,18 +814,3 @@ class GardenArea:
         trees.change_of_day(param=1, show_next_day_view=show_next_day_view, gui=gui)
         Orchard.changing_the_water_from_the_weather(weather, param=1, show_next_day_view=show_next_day_view,
                                                     gui=gui)
-
-    @staticmethod
-    def get_list_of_vegetables():
-        names = SeedBed.names('vegetables')
-        return names
-
-    @staticmethod
-    def get_list_of_fruits():
-        names = Orchard.names('fruits')
-        return names
-
-    @staticmethod
-    def get_length(some_object):
-        number = len(some_object)
-        return number
