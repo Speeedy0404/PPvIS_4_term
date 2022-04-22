@@ -46,30 +46,27 @@ class PoorConditions:
                                                               param)
                     break
 
-    def del_condition(self, param: int) -> None:
-        ReadOverwritingPoorConditions.deletion(self.__name, self.__del_name, param)
-
 
 class Weeds(PoorConditions):
 
-    def __init__(self, name: str, del_name: str = "condition_weeds", default: str = "Все хорошо, никаких сорняков",
-                 bad_status: str = "Появились сорняки, требуется прополка", creation: int = 0,
+    def __init__(self, name: str, del_name: str = "condition_weeds", default: str = "Сорняков нет",
+                 bad_status: str = "Появились сорняки", creation: int = 0,
                  param: int = 0) -> None:
         super().__init__(name, del_name, default, bad_status, creation, param)
 
 
 class Vermin(PoorConditions):
 
-    def __init__(self, name: str, del_name: str = "condition_vermin", default: str = "Все хорошо, никаких вредителей",
-                 bad_status: str = "Появились вредители, требуется попшыкать специальным средством", creation: int = 0,
+    def __init__(self, name: str, del_name: str = "condition_vermin", default: str = "Вредителей нет",
+                 bad_status: str = "Появились вредители", creation: int = 0,
                  param: int = 0) -> None:
         super().__init__(name, del_name, default, bad_status, creation, param)
 
 
 class Illness(PoorConditions):
 
-    def __init__(self, name: str, del_name: str = "condition_illness", default: str = "Все хорошо, никаких болезней",
-                 bad_status: str = "Появилась болезнь, требуется опрыскивание специальным средством", creation: int = 0,
+    def __init__(self, name: str, del_name: str = "condition_illness", default: str = "Болезней нет",
+                 bad_status: str = "Появилась болезнь", creation: int = 0,
                  param: int = 0) -> None:
         super().__init__(name, del_name, default, bad_status, creation, param)
 

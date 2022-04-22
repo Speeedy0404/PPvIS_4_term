@@ -6,8 +6,8 @@ from garden_bed_and_trees import *
 class GardenArea:
 
     def __init__(self, tag: str, collect, weed, water, cure, pests, fertilizer, seedlingsnew, treenew, seedlingsdel,
-                 treedel, info, newday, gui=False, Viewshow_info_view=None, Viewshow_next_day_view=None,
-                 Viewshow_status_view=None, inputt=None) -> None:
+                 treedel, info, newday, gui=False, show_info_view=None, show_next_day_view=None,
+                 show_status_view=None, input_gui=None) -> None:
         self.__tag = tag
         garden = SeedBed()
         trees = Orchard()
@@ -16,31 +16,31 @@ class GardenArea:
         watering = Watering()
         fertillizer = Fertilizer()
         self.processing(garden, trees, weather, weeding, watering, fertillizer, collect, weed, water, cure, pests,
-                        fertilizer, seedlingsnew, treenew, seedlingsdel, treedel, info, newday, gui, Viewshow_info_view,
-                        Viewshow_next_day_view, Viewshow_status_view, inputt)
+                        fertilizer, seedlingsnew, treenew, seedlingsdel, treedel, info, newday, gui, show_info_view,
+                        show_next_day_view, show_status_view, input_gui)
 
     def processing(self, garden, trees, weather, weeding, watering, fertillizer, collect, weed, water, cure, pests,
                    fertilizer, seedlingsnew, treenew, seedlingsdel, treedel, info, newday, gui,
-                   Viewshow_info_view, Viewshow_next_day_view, Viewshow_status_view, inputt) -> None:
+                   show_info_view, show_next_day_view, show_status_view, input_gui) -> None:
 
         if collect:
-            GardenArea.collection(gui, Viewshow_status_view, inputt)
+            GardenArea.collection(gui, show_status_view, input_gui)
         elif weed:
-            GardenArea.weeding_seedlings(weeding, gui, Viewshow_status_view, inputt)
+            GardenArea.weeding_seedlings(weeding, gui, show_status_view, input_gui)
         elif water:
-            GardenArea.watering_the_garden_plot(watering, gui, Viewshow_status_view, inputt)
+            GardenArea.watering_the_garden_plot(watering, gui, show_status_view, input_gui)
         elif cure:
-            GardenArea.cure_something_in_a_garden_plot(gui, Viewshow_status_view, inputt)
+            GardenArea.cure_something_in_a_garden_plot(gui, show_status_view, input_gui)
         elif pests:
-            GardenArea.get_rid_of_pests(gui, Viewshow_status_view, inputt)
+            GardenArea.get_rid_of_pests(gui, show_status_view, input_gui)
         elif fertilizer:
-            GardenArea.use_fertillizer(fertillizer, gui, Viewshow_status_view, inputt)
+            GardenArea.use_fertillizer(fertillizer, gui, show_status_view, input_gui)
         elif seedlingsnew:
             value: bool = False
             while value != True:
                 if gui:
                     try:
-                        del_name: str = inputt
+                        del_name: str = input_gui
                         name: list[str] = SeedBed.names('vegetables')
                         count: int = len(name)
                         value = True
@@ -50,10 +50,10 @@ class GardenArea:
                             else:
                                 raise NameError
                         garden.new_object(name=del_name, param=0)
-                        Viewshow_status_view("Посадка произошла успешно")
+                        show_status_view("Посадка произошла успешно")
 
                     except(NameError):
-                        Viewshow_status_view("Такая рассада уже присутствует посадите другую")
+                        show_status_view("Такая рассада уже присутствует посадите другую")
                 elif gui == False:
                     try:
                         del_name: str = input("Введите имя рассады которую вы хотите посадить: ")
@@ -79,7 +79,7 @@ class GardenArea:
             while value != True:
                 if gui:
                     try:
-                        del_name: str = inputt
+                        del_name: str = input_gui
                         name: list[str] = Orchard.names('fruits')
                         count: int = len(name)
                         value = True
@@ -89,10 +89,10 @@ class GardenArea:
                             else:
                                 raise NameError
                         trees.new_object(name=del_name, param=1)
-                        Viewshow_status_view("Посадка произошла успешно")
+                        show_status_view("Посадка произошла успешно")
 
                     except(NameError):
-                        Viewshow_status_view("Такое дерево уже присутствует посадите другое")
+                        show_status_view("Такое дерево уже присутствует посадите другое")
 
 
                 elif gui == False:
@@ -121,7 +121,7 @@ class GardenArea:
             while value != True:
                 if gui:
                     try:
-                        del_name: str = inputt
+                        del_name: str = input_gui
                         name: list[str] = SeedBed.names('vegetables')
                         count: int = len(name)
                         for i in range(0, count):
@@ -132,11 +132,11 @@ class GardenArea:
                         if value == False:
                             raise NameError
                         SeedBed.deleting_information(i_d, param=0)
-                        Viewshow_status_view("Успешно выкопали рассаду")
+                        show_status_view("Успешно выкопали рассаду")
 
                     except(NameError):
                         value = True
-                        Viewshow_status_view("Такой рассады нет на вашем участке")
+                        show_status_view("Такой рассады нет на вашем участке")
 
                 elif gui == False:
                     try:
@@ -166,7 +166,7 @@ class GardenArea:
             while value != True:
                 if gui:
                     try:
-                        del_name: str = inputt
+                        del_name: str = input_gui
                         name: list[str] = Orchard.names('fruits')
                         count: int = len(name)
                         for i in range(0, count):
@@ -177,11 +177,11 @@ class GardenArea:
                         if value == False:
                             raise NameError
                         Orchard.deleting_information(i_t, param=1)
-                        Viewshow_status_view("Успешно выкорчевали дерево")
+                        show_status_view("Успешно выкорчевали дерево")
 
                     except(NameError):
                         value = True
-                        Viewshow_status_view("Такого дерева нет на вашем участке")
+                        show_status_view("Такого дерева нет на вашем участке")
                 elif gui == False:
                     try:
                         del_name: str = input(
@@ -207,7 +207,7 @@ class GardenArea:
                         print("---------------------------------------")
         elif info:
             if gui:
-                Viewshow_info_view(self.__tag, weather, SeedBed.show_information_about_objects, SeedBed.status,
+                show_info_view(self.__tag, weather, SeedBed.show_information_about_objects, SeedBed.status,
                                    Orchard.show_information_about_objects, Orchard.status)
             elif gui == False:
                 print(self.__tag)
@@ -218,7 +218,7 @@ class GardenArea:
                 Orchard.status(param=1)
         elif newday:
             if gui:
-                GardenArea.garden_plot_next_day(weather, garden, trees, Viewshow_next_day_view, gui)
+                GardenArea.garden_plot_next_day(weather, garden, trees, show_next_day_view, gui)
             elif gui == False:
                 GardenArea.garden_plot_next_day(weather, garden, trees)
                 print("Погода сегодня: {}".format(weather.info_weather))
@@ -228,14 +228,14 @@ class GardenArea:
                 Orchard.status(param=1)
 
     @staticmethod
-    def collection(gui=False, Viewshow_status_view=None, inputt=None) -> None:
+    def collection(gui=False, show_status_view=None, input_gui=None) -> None:
         i_g = None
         i_t = None
         value: bool = False
         while (not value):
             if gui:
                 try:
-                    delta_name: str = inputt
+                    delta_name: str = input_gui
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
@@ -258,27 +258,27 @@ class GardenArea:
                     if i_g == None:
                         pass
                     elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
-                        Viewshow_status_view("Рассада успешно собрана")
+                        show_status_view("Рассада успешно собрана")
                         SeedBed.deleting_information(i_g, param=0)
                     else:
 
-                        Viewshow_status_view("Эта рассада еще не выросла")
+                        show_status_view("Эта рассада еще не выросла")
 
                     if i_t == None:
                         pass
                     elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
 
-                        Viewshow_status_view("Плоды дерева успешно собраны")
+                        show_status_view("Плоды дерева успешно собраны")
 
                         Orchard.deleting_information(i_t, param=1)
 
                     else:
 
-                        Viewshow_status_view("Это дерево еще не созрело")
+                        show_status_view("Это дерево еще не созрело")
 
                 except(NameError):
 
-                    Viewshow_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке ")
+                    show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке ")
 
             elif gui == False:
                 try:
@@ -332,13 +332,13 @@ class GardenArea:
                     print("---------------------------------------")
 
     @staticmethod
-    def weeding_seedlings(weeding, gui=False, Viewshow_status_view=None, inputt=None) -> None:
+    def weeding_seedlings(weeding, gui=False, show_status_view=None, input_gui=None) -> None:
         i = None
         value: bool = False
         while (not value):
             if gui:
                 try:
-                    delta_name: str = inputt
+                    delta_name: str = input_gui
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
                     value = True
@@ -350,14 +350,14 @@ class GardenArea:
                         raise NameError
 
                     if SeedBed.check_weeds(i) == 0:
-                        Viewshow_status_view("Этой рассаде прополка не требуется")
+                        show_status_view("Этой рассаде прополка не требуется")
 
                     else:
-                        weeding.using_actions(gui, Viewshow_status_view)
+                        weeding.using_actions(gui, show_status_view)
                         SeedBed.regeneration_weeds(i, param=0)
 
                 except(NameError):
-                    Viewshow_status_view("Вы должны выбрать рассаду которая растёт на вашем участке")
+                    show_status_view("Вы должны выбрать рассаду которая растёт на вашем участке")
 
             elif gui == False:
                 try:
@@ -388,14 +388,14 @@ class GardenArea:
                     print("---------------------------------------")
 
     @staticmethod
-    def watering_the_garden_plot(watering, gui=False, Viewshow_status_view=None, inputt=None) -> None:
+    def watering_the_garden_plot(watering, gui=False, show_status_view=None, input_gui=None) -> None:
         i_g = None
         i_t = None
         value: bool = False
         while (not value):
             if gui:
                 try:
-                    delta_name: str = inputt
+                    delta_name: str = input_gui
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
@@ -419,26 +419,26 @@ class GardenArea:
                         pass
                     elif SeedBed.check_level_of_water(i_g, param=0) == 0:
 
-                        Viewshow_status_view("Этой рассаде поливка не требуется. Земля полностью пропитана водой")
+                        show_status_view("Этой рассаде поливка не требуется. Земля полностью пропитана водой")
 
                     else:
-                        watering.using_actions(gui, Viewshow_status_view)
+                        watering.using_actions(gui, show_status_view)
                         SeedBed.regenerate_level_of_water(i_g, SeedBed.check_level_of_water(i_g, param=0),
                                                           param=0)
 
                     if i_t == None:
                         pass
                     elif Orchard.check_level_of_water(i_t, param=1) == 0:
-                        Viewshow_status_view("Этому дереву поливка не требуется. Земля полностью пропитана водой")
+                        show_status_view("Этому дереву поливка не требуется. Земля полностью пропитана водой")
 
                     else:
 
-                        watering.using_actions(gui, Viewshow_status_view)
+                        watering.using_actions(gui, show_status_view)
                         Orchard.regenerate_level_of_water(i_t, Orchard.check_level_of_water(i_t, param=1),
                                                           param=1)
 
                 except(NameError):
-                    Viewshow_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
+                    show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
 
             elif gui == False:
                 try:
@@ -494,14 +494,14 @@ class GardenArea:
                     print("---------------------------------------")
 
     @staticmethod
-    def cure_something_in_a_garden_plot(gui=False, Viewshow_status_view=None, inputt=None) -> None:
+    def cure_something_in_a_garden_plot(gui=False, show_status_view=None, input_gui=None) -> None:
         i_g = None
         i_t = None
         value: bool = False
         while (not value):
             if gui:
                 try:
-                    delta_name: str = inputt
+                    delta_name: str = input_gui
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
@@ -524,27 +524,27 @@ class GardenArea:
                     if i_g == None:
                         pass
                     elif SeedBed.check_illness(i_g, param=0) == 0:
-                        Viewshow_status_view("Этой рассаде лечение не требуется")
+                        show_status_view("Этой рассаде лечение не требуется")
 
                     else:
 
-                        Viewshow_status_view("Рассада успешно вылечена")
+                        show_status_view("Рассада успешно вылечена")
 
                         SeedBed.regeneration_illness(i_g, param=0)
 
                     if i_t is None:
                         pass
                     elif Orchard.check_illness(i_t, param=1) == 0:
-                        Viewshow_status_view("Этому дереву лечение не требуется")
+                        show_status_view("Этому дереву лечение не требуется")
                     else:
 
-                        Viewshow_status_view("Дерево успешно вылечено")
+                        show_status_view("Дерево успешно вылечено")
 
                         Orchard.regeneration_illness(i_t, param=1)
 
                 except NameError:
 
-                    Viewshow_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
+                    show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
 
             elif gui == False:
                 try:
@@ -598,14 +598,14 @@ class GardenArea:
                     print("---------------------------------------")
 
     @staticmethod
-    def get_rid_of_pests(gui=False, Viewshow_status_view=None, inputt=None) -> None:
+    def get_rid_of_pests(gui=False, show_status_view=None, input_gui=None) -> None:
         i_g = None
         i_t = None
         value: bool = False
         while (not value):
             if gui:
                 try:
-                    delta_name: str = inputt
+                    delta_name: str = input_gui
 
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
@@ -628,11 +628,11 @@ class GardenArea:
                     if i_g == None:
                         pass
                     elif SeedBed.check_vermin(i_g, param=0) == 0:
-                        Viewshow_status_view("Этой рассаде не требуется избавление от вредителей")
+                        show_status_view("Этой рассаде не требуется избавление от вредителей")
 
                     else:
 
-                        Viewshow_status_view("Рассада успешно избавлена от вредителей")
+                        show_status_view("Рассада успешно избавлена от вредителей")
 
                         SeedBed.regeneration_vermin(i_g, param=0)
 
@@ -640,17 +640,17 @@ class GardenArea:
                         pass
                     elif Orchard.check_vermin(i_t, param=1) == 0:
 
-                        Viewshow_status_view("Этому дереву не требуется избавление от вредителей")
+                        show_status_view("Этому дереву не требуется избавление от вредителей")
 
                     else:
 
-                        Viewshow_status_view("Дерево успешно избавдено от вредителей")
+                        show_status_view("Дерево успешно избавдено от вредителей")
 
                         Orchard.regeneration_vermin(i_t, param=1)
 
                 except(NameError):
 
-                    Viewshow_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
+                    show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
 
             elif gui == False:
                 try:
@@ -704,14 +704,14 @@ class GardenArea:
                     print("---------------------------------------")
 
     @staticmethod
-    def use_fertillizer(fertillizer, gui=False, Viewshow_status_view=None, inputt=None) -> None:
+    def use_fertillizer(fertillizer, gui=False, show_status_view=None, input_gui=None) -> None:
         i_g = None
         i_t = None
         value: bool = False
         while (not value):
             if gui:
                 try:
-                    delta_name: str = inputt
+                    delta_name: str = input_gui
                     name: list[str] = SeedBed.names('vegetables')
                     count: int = len(name)
                     for delta_i in range(0, count):
@@ -734,11 +734,11 @@ class GardenArea:
                         pass
                     elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
 
-                        Viewshow_status_view("Рассада уже созрела и не нуждаеться в удобрении")
+                        show_status_view("Рассада уже созрела и не нуждаеться в удобрении")
 
                     else:
 
-                        fertillizer.using_actions(gui, Viewshow_status_view)
+                        fertillizer.using_actions(gui, show_status_view)
                         SeedBed.change_height(i_g, param=0)
 
 
@@ -746,17 +746,17 @@ class GardenArea:
                         pass
                     elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
 
-                        Viewshow_status_view("Плоды дерева уже созрели. Дерево не нуждаеться в удобрении")
+                        show_status_view("Плоды дерева уже созрели. Дерево не нуждаеться в удобрении")
 
                     else:
 
-                        fertillizer.using_actions(gui, Viewshow_status_view)
+                        fertillizer.using_actions(gui, show_status_view)
                         Orchard.change_height(i_t, param=1)
 
 
                 except(NameError):
 
-                    Viewshow_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
+                    show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
 
 
             elif gui ==False:
@@ -810,11 +810,11 @@ class GardenArea:
                     print("---------------------------------------")
 
     @staticmethod
-    def garden_plot_next_day(weather, garden, trees, Viewshow_next_day_view=None, gui=False) -> None:
+    def garden_plot_next_day(weather, garden, trees, show_next_day_view=None, gui=False) -> None:
         weather.changing_the_weather()
-        garden.change_of_day(param=0, Viewshow_next_day_view=Viewshow_next_day_view, gui=gui)
-        SeedBed.changing_the_water_from_the_weather(weather, param=0, Viewshow_next_day_view=Viewshow_next_day_view,
+        garden.change_of_day(param=0, show_next_day_view=show_next_day_view, gui=gui)
+        SeedBed.changing_the_water_from_the_weather(weather, param=0, show_next_day_view=show_next_day_view,
                                                     gui=gui)
-        trees.change_of_day(param=1, Viewshow_next_day_view=Viewshow_next_day_view, gui=gui)
-        Orchard.changing_the_water_from_the_weather(weather, param=1, Viewshow_next_day_view=Viewshow_next_day_view,
+        trees.change_of_day(param=1, show_next_day_view=show_next_day_view, gui=gui)
+        Orchard.changing_the_water_from_the_weather(weather, param=1, show_next_day_view=show_next_day_view,
                                                     gui=gui)

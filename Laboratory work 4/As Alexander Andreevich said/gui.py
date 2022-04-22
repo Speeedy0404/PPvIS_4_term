@@ -10,6 +10,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
+import json
 
 Config.set('graphics', 'resizable', 0)
 Config.set('graphics', 'width', 1300)
@@ -42,6 +43,7 @@ Builder.load_string('''
 <Garden>:
 
     inffo:inffo
+    fruits:fruits
     status:status
     
     collect:collect
@@ -59,24 +61,30 @@ Builder.load_string('''
         BoxLayout:
             id:inffo
             orientation: 'vertical'
-            size_hint: .5, 1
+            size_hint: .35, 0.95
             spacing:10
             padding:10
             pos:0,0
-            
-             
-                       
+        
+        BoxLayout:
+            id:fruits
+            orientation: 'vertical'
+            size_hint: .35, .95
+            spacing:10
+            padding:10
+            pos:465,0
+                     
         ItemLabel:
             id:status
             text:' Статус'
-            size_hint: .5, 0.1
-            pos:650,720
+            size_hint: .3, 0.1
+            pos:630,720
         
         ItemButton:
-            text:'Собрать рассаду/плоды дерева'
-            size: 300,50
+            text:'Собрать рассаду/плоды'
+            size: 170,50
             size_hint: None, None
-            pos: 660,660
+            pos: 950,660
             on_press:
                 root.del_info()
                 root.press_collect()
@@ -85,15 +93,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:collect
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,600
+            pos: 950,600
         
         ItemButton:
             text:'Прополоть'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,540
+            pos: 950,540
             on_press:
                 root.del_info()
                 root.press_weed()
@@ -102,15 +110,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:weed
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,480
+            pos: 950,480
         
         ItemButton:
             text:'Полить'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,420
+            pos: 950,420
             on_press:
                 root.del_info()
                 root.press_water()
@@ -119,15 +127,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:water
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,360
+            pos: 950,360
         
         ItemButton:
             text:'Вылечить'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,300
+            pos: 950,300
             on_press:
                 root.del_info()
                 root.press_cure()
@@ -136,15 +144,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:cure
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,240
+            pos: 950,240
         
         ItemButton:
             text:'Избавиться от вредителей'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,180
+            pos: 950,180
             on_press:
                 root.del_info()
                 root.press_pests()
@@ -153,15 +161,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:pests
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 660,120
+            pos: 950,120
         
         ItemButton:
-            text:'Информация о садовом участке'
-            size: 300,50
+            text:'Информация о участке'
+            size: 170,50
             size_hint: None, None
-            pos: 660,60
+            pos: 950,60
             on_press:
                 root.del_info()
                 root.show_info()
@@ -169,9 +177,9 @@ Builder.load_string('''
             
         ItemButton:
             text:'Использовать удобрение'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,660
+            pos: 1125,660
             on_press:
                 root.del_info()
                 root.press_fertilizer()
@@ -180,15 +188,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:fertilizer
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,600
+            pos: 1125,600
         
         ItemButton:
             text:'Посадить новую рассаду'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,540
+            pos: 1125,540
             on_press:
                 root.del_info()
                 root.seedlings_new()
@@ -197,15 +205,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:seedlingsnew
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,480
+            pos: 1125,480
         
         ItemButton:
             text:'Посадить новое дерево'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,420
+            pos: 1125,420
             on_press:
                 root.del_info()
                 root.tree_new()
@@ -214,15 +222,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:treenew
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,360
+            pos: 1125,360
         
         ItemButton:
             text:'Выкопать рассаду'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,300
+            pos: 1125,300
             on_press:
                 root.del_info()
                 root.seedlings_del()
@@ -231,15 +239,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:seedlingsdel
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,240
+            pos: 1125,240
         
         ItemButton:
             text:'Выкорчевать дерево'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,180
+            pos: 1125,180
             on_press:
                 root.del_info()
                 root.tree_del()
@@ -248,15 +256,15 @@ Builder.load_string('''
         ItemTextInput: 
             id:treedel
             hint_text:'Название'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,120
+            pos: 1125,120
         
         ItemButton:
             text:'Перейти к следующему дню'
-            size: 300,50
+            size: 170,50
             size_hint: None, None
-            pos: 970,60
+            pos: 1125,60
             on_press:
                 root.del_info()
                 root.next_day()
@@ -281,17 +289,27 @@ class Garden(Screen):
     newday = False
     gui = True
     list = []
+    list_fruits = []
 
     def show_info(self):
         Controller.on_press_show_info(self)
 
     def del_info(self):
         try:
+
             for i in range(len(Garden.list)):
                 self.inffo.remove_widget(Garden.list[i])
+
+            for i in range(len(Garden.list_fruits)):
+                self.fruits.remove_widget(Garden.list_fruits[i])
+
             Garden.list.clear()
-        except(IndexError):
+            Garden.list_fruits.clear()
+
+        except IndexError:
+
             Garden.list.clear()
+            Garden.list_fruits.clear()
 
     def next_day(self):
         Controller.on_press_next_day(self)
@@ -407,115 +425,116 @@ class Model:
 
     @staticmethod
     def add_info_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_info_view=View.show_info_view)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_info_view=View.show_info_view)
 
     @staticmethod
     def next_day_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_next_day_view=View.show_next_day_view)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_next_day_view=View.show_next_day_view)
 
     @staticmethod
     def get_on_press_seedlingsnew_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.seedlingsnew.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.seedlingsnew.text)
 
     @staticmethod
     def get_on_press_treenew_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.treenew.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.treenew.text)
 
     @staticmethod
     def get_on_press_seedlingsdel_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.seedlingsdel.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.seedlingsdel.text)
 
     @staticmethod
     def get_on_press_treedel_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.treedel.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.treedel.text)
 
     @staticmethod
     def get_on_press_collect_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.collect.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.collect.text)
 
     @staticmethod
     def get_on_press_weed_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.weed.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.weed.text)
 
     @staticmethod
     def get_on_press_water_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.water.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.water.text)
 
     @staticmethod
     def get_on_press_cure_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.cure.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.cure.text)
 
     @staticmethod
     def get_on_press_pests_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.pests.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.pests.text)
 
     @staticmethod
     def get_on_press_fertilizer_model():
-        my_garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
-                               Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
-                               Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
-                               Viewshow_status_view=View.show_status_view, inputt=Controller.root.fertilizer.text)
+        garden = GardenArea("Престиж", Garden.collect, Garden.weed, Garden.water, Garden.cure, Garden.pests,
+                            Garden.fertilizer, Garden.seedlingsnew, Garden.treenew,
+                            Garden.seedlingsdel, Garden.treedel, Garden.info, Garden.newday, Garden.gui,
+                            show_status_view=View.show_status_view, input_gui=Controller.root.fertilizer.text)
 
 
 class View:
 
     @staticmethod
-    def show_info_view(name, weather, SeedBedshow_information_about_objects, SeedBedstatus,
-                       Orchardshow_information_about_objects, Orchardstatus):
-        it = 0
+    def show_info_view(name, weather, seed_bed_show_information_about_objects, seed_bed_status,
+                       orchard_show_information_about_objects, orchard_status):
+        vegetables = 0
         Garden.list.append(Label(text='Садовый участок: {}'.format(name)))
-        Controller.root.inffo.add_widget(Garden.list[it])
-        it += 1
+        Controller.root.inffo.add_widget(Garden.list[vegetables])
+        vegetables += 1
         Garden.list.append(Label(text='Погода {}'.format(weather.info_weather)))
-        Controller.root.inffo.add_widget(Garden.list[it])
-        SeedBedshow_information_about_objects(param=0, gui=Garden.gui, root=Controller.root, list=Garden.list,
-                                              label=Label)
-        SeedBedstatus(param=0, gui=Garden.gui, root=Controller.root, listt=Garden.list, label=Label)
-        Orchardshow_information_about_objects(param=1, gui=Garden.gui, root=Controller.root, list=Garden.list,
-                                              label=Label)
-        Orchardstatus(param=1, gui=Garden.gui, root=Controller.root, listt=Garden.list, label=Label)
+        Controller.root.inffo.add_widget(Garden.list[vegetables])
+
+        seed_bed_show_information_about_objects(param=0, gui=Garden.gui, root=Controller.root, list=Garden.list,
+                                                label=Label)
+        seed_bed_status(param=0, gui=Garden.gui, root=Controller.root, list_objects=Garden.list, label=Label)
+        orchard_show_information_about_objects(param=1, gui=Garden.gui, root=Controller.root, list=Garden.list_fruits,
+                                               label=Label)
+        orchard_status(param=1, gui=Garden.gui, root=Controller.root, list_objects=Garden.list_fruits, label=Label)
         Garden.info = False
 
     @staticmethod
-    def show_next_day_view(name, str):
+    def show_next_day_view(name, some_string):
         it = len(Garden.list)
         Garden.list.append(Label(text=name))
         Controller.root.inffo.add_widget(Garden.list[it])
         it += 1
-        Garden.list.append(Label(text=str))
+        Garden.list.append(Label(text=some_string))
         Controller.root.inffo.add_widget(Garden.list[it])
         Garden.newday = False
 

@@ -1,4 +1,3 @@
-import os
 import json
 
 
@@ -10,6 +9,7 @@ class ReadOverwritingSeeds:
 
     @staticmethod
     def read_overwriting_for_init(name: str, creation: int, param: int) -> list:
+        bool_is_in_garden = True
         if creation == 0:
             parameters = []
             if param == 0:
@@ -42,7 +42,18 @@ class ReadOverwritingSeeds:
             level_water = 5
 
             if name in data[del_name]:
+
                 name_del = name + str(len(data[del_name][name]) + 1)
+
+                while bool_is_in_garden:
+                    names = []
+                    for item in data[del_name][name]:
+                        names.append(item)
+                    if name_del in names:
+                        name_del = name_del + str(len(data[del_name][name]) + 1)
+                    else:
+                        bool_is_in_garden = False
+
                 data[del_name][name][name_del] = {
                     "name": name_del,
                     "height": height,
@@ -76,7 +87,7 @@ class ReadOverwritingSeeds:
             del_name = 'fruits'
         for item in data[del_name]:
             if name in data[del_name][item]:
-                data[del_name][item][name]["height"] =  height
+                data[del_name][item][name]["height"] = height
                 data[del_name][item][name]["level_water"] = level_water
 
         with open("garden_area.json", 'w') as file:
@@ -120,8 +131,6 @@ class ReadOverwritingGrowthAndDeath:
             hp = 9
 
             for item in data[del_name]:
-                print(data[del_name][item])
-                print(name)
                 if Globals.name_str in data[del_name][item]:
                     data[del_name][item][Globals.name_str]["day"] = day
                     data[del_name][item][Globals.name_str]["how_many_days_to_grow"] = how_many_days_to_grow
@@ -134,11 +143,12 @@ class ReadOverwritingGrowthAndDeath:
 
     @staticmethod
     def deletion(name: str, param: int) -> None:
+
+        with open("garden_area.json", 'r') as file:
+            data = json.load(file)
+
         if param == 0:
             del_path = 'vegetables'
-
-            with open("garden_area.json", 'r') as file:
-                data = json.load(file)
 
             for item in data[del_path]:
                 if name in data[del_path][item]:
@@ -149,9 +159,6 @@ class ReadOverwritingGrowthAndDeath:
 
         elif param == 1:
             del_path = 'fruits'
-
-            with open("garden_area.json", 'r') as file:
-                data = json.load(file)
 
             for item in data[del_path]:
                 if name in data[del_path][item]:

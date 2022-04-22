@@ -155,7 +155,7 @@ if __name__ == "__main__":
     with open("garden_area.json", 'r') as file:
         data = json.load(file)
 
-    del data['fruits']['apple']['apple1']
+
 
     with open("garden_area.json", 'w') as file:
         json.dump(data, file, indent=3)
