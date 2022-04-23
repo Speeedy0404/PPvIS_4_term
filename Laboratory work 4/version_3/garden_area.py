@@ -28,7 +28,7 @@ class GardenArea:
 
                 if position_of_vegetable is None:
                     pass
-                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary.get("fruit_is_ripe"):
+                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary["fruit_is_ripe"]:
                     show_status_view("Рассада успешно собрана")
                     SeedBed.deleting_information(position_of_vegetable, param=0)
                 else:
@@ -602,7 +602,11 @@ class GardenArea:
 
     @staticmethod
     def position(culture: str, name: str):
-        names: list[str] = names_map[culture]
+        names = []
+        if culture == "fruits":
+            names: list[str] = Orchard.names('fruits')
+        elif culture == "vegetables":
+            names: list[str] = SeedBed.names('vegetables')
         if names is None:
             return None
         for changed_position in range(0, len(names)):
@@ -624,9 +628,4 @@ action_map = {
     'tree_del': GardenArea.del_tree,
     'info': GardenArea.info,
     'new_day': GardenArea.new_day
-}
-
-names_map = {
-    'fruits': Orchard.names('fruits'),
-    'vegetables': SeedBed.names('vegetables')
 }
