@@ -272,9 +272,6 @@ Builder.load_string('''
 ''')
 
 
-# Создайте класс для всех экранов, в которые вы можете включить
-# полезные методы, специфичные для этого экрана
-
 class Garden(Screen):
     collect = False
     weed = False
@@ -533,13 +530,8 @@ class ScreenManagerMy(ScreenManager):
 
 screen_manager = ScreenManager()
 
-# Добавьте экраны к менеджеру, а затем укажите имя
-# используется для переключения экранов
-
 screen_manager.add_widget(Garden(name="screen_one"))
 
-
-# Создать класс приложения
 
 class ScreenApp(App):
 
@@ -547,7 +539,6 @@ class ScreenApp(App):
         return screen_manager
 
 
-# запустить приложение
 if __name__ == "__main__":
     sample_app = ScreenApp()
     SeedBed()

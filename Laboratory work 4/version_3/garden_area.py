@@ -25,62 +25,55 @@ class GardenArea:
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
-                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary["fruit_is_ripe"]:
-                    show_status_view("Рассада успешно собрана")
+                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary["ripe"]:
+                    show_status_view(dictionary["collect_seed"])
                     SeedBed.deleting_information(position_of_vegetable, param=0)
                 else:
-                    show_status_view("Эта рассада еще не выросла")
-
+                    show_status_view(dictionary["no_grow_seed"])
                 if position_of_fruit is None:
                     pass
-                elif Orchard.check_height(position_of_fruit, param=1) == "Период плодоношения":
-                    show_status_view("Плоды дерева успешно собраны")
+                elif Orchard.check_height(position_of_fruit, param=1) == dictionary["fruiting"]:
+                    show_status_view(dictionary["collect_fruit"])
                     Orchard.deleting_information(position_of_fruit, param=1)
                 else:
-                    show_status_view("Это дерево еще не созрело")
-
+                    show_status_view(dictionary["no_grow_fruit"])
             except NameError:
-                show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке ")
-
+                show_status_view(dictionary["no_name"])
         else:
             try:
-                object_of_the_plot: str = input("Какую рассаду или плоды дерева которые вы хотите собрать? -> ")
-
+                object_of_the_plot: str = input(dictionary["collect"])
                 position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
                 position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
-                elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
-                    ViewPrint.show_status_view("---------------------------------------", "Рассада успешно собрана",
-                                               "---------------------------------------")
+                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary["ripe"]:
+                    ViewPrint.show_status_view(dictionary["line"], dictionary["collect_seed"],
+                                               dictionary["line"])
                     SeedBed.deleting_information(position_of_vegetable, param=0)
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Эта рассада еще не выросла",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary["line"],
+                                               dictionary["no_grow_seed"],
+                                               dictionary["line"])
                 if position_of_fruit is None:
                     pass
-                elif Orchard.check_height(position_of_fruit, param=1) == "Период плодоношения":
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Плоды дерева успешно собраны",
-                                               "---------------------------------------")
+                elif Orchard.check_height(position_of_fruit, param=1) == dictionary["fruiting"]:
+                    ViewPrint.show_status_view(dictionary["line"],
+                                               dictionary["collect_fruit"],
+                                               dictionary["line"])
                     Orchard.deleting_information(position_of_fruit, param=1)
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Это дерево еще не созрело",
-                                               "---------------------------------------")
-
+                    ViewPrint.show_status_view(dictionary["line"],
+                                               dictionary["no_grow_fruit"],
+                                               dictionary["line"])
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Вы должны выбрать рассаду или дерево которые растут на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary["line"],
+                                           dictionary["no_name"],
+                                           dictionary["line"])
 
     @staticmethod
     def weeding_seedlings(gui=False, show_status_view=None, input_gui=None) -> None:
@@ -92,40 +85,34 @@ class GardenArea:
 
                 if position_of_vegetable is None:
                     raise NameError
-
                 if SeedBed.check_weeds(position_of_vegetable) == 0:
-                    show_status_view("Этой рассаде прополка не требуется")
+                    show_status_view(dictionary["weeding_non"])
                 else:
                     weeding.using_actions(gui, show_status_view)
                     SeedBed.regeneration_weeds(position_of_vegetable, param=0)
-
             except NameError:
-                show_status_view("Вы должны выбрать рассаду которая растёт на вашем участке")
-
+                show_status_view(dictionary["no_seed"])
         elif gui is False:
             try:
-                object_of_the_plot: str = input("Какую рассаду вы хотите прополоть? -> ")
-
+                object_of_the_plot: str = input(dictionary["weed"])
                 position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
 
                 if position_of_vegetable is None:
                     raise NameError
-
                 if SeedBed.check_weeds(position_of_vegetable) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этой рассаде прополка не требуется",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary["line"],
+                                               dictionary["weeding_non"],
+                                               dictionary["line"])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
+                    ViewPrint.show_status_view(dictionary["line"],
                                                "",
-                                               "---------------------------------------")
+                                               dictionary["line"])
                     weeding.using_actions()
                     SeedBed.regeneration_weeds(position_of_vegetable, param=0)
-
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Вы должны выбрать рассаду которая растёт на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary["line"],
+                                           dictionary["no_seed"],
+                                           dictionary["line"])
 
     @staticmethod
     def watering_the_garden_plot(gui=False, show_status_view=None, input_gui=None) -> None:
@@ -138,75 +125,66 @@ class GardenArea:
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
                 elif SeedBed.check_level_of_water(position_of_vegetable, param=0) == 0:
-                    show_status_view("Этой рассаде поливка не требуется. Земля полностью пропитана водой")
+                    show_status_view(dictionary['water_non_seed'])
                 else:
                     watering.using_actions(gui, show_status_view)
                     SeedBed.regenerate_level_of_water(position_of_vegetable,
                                                       SeedBed.check_level_of_water(position_of_vegetable, param=0),
                                                       param=0)
-
                 if position_of_fruit is None:
                     pass
                 elif Orchard.check_level_of_water(position_of_fruit, param=1) == 0:
-                    show_status_view("Этому дереву поливка не требуется. Земля полностью пропитана водой")
+                    show_status_view(dictionary['water_non_fruit'])
                 else:
                     watering.using_actions(gui, show_status_view)
                     Orchard.regenerate_level_of_water(position_of_fruit,
                                                       Orchard.check_level_of_water(position_of_fruit, param=1),
                                                       param=1)
-
             except NameError:
-                show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
-
+                show_status_view(dictionary['no_name'])
         elif gui is False:
             try:
-                object_of_the_plot: str = input("Какую рассаду или дерево вы хотите полить? -> ")
-
+                object_of_the_plot: str = input(dictionary['water'])
                 position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
                 position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
                 elif SeedBed.check_level_of_water(position_of_vegetable, param=0) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этой рассаде поливка не требуется. Земля полностью пропитана водой",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['water_non_seed'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
+                    ViewPrint.show_status_view(dictionary['line'],
                                                "",
-                                               "---------------------------------------")
+                                               dictionary['line'])
                     watering.using_actions()
                     SeedBed.regenerate_level_of_water(position_of_vegetable,
                                                       SeedBed.check_level_of_water(position_of_vegetable, param=0),
                                                       param=0)
-
                 if position_of_fruit is None:
                     pass
                 elif Orchard.check_level_of_water(position_of_fruit, param=1) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этому дереву поливка не требуется. Земля полностью пропитана водой",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['water_non_fruit'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
+                    ViewPrint.show_status_view(dictionary['line'],
                                                "",
-                                               "---------------------------------------")
-
+                                               dictionary['line'])
                     watering.using_actions()
                     Orchard.regenerate_level_of_water(position_of_fruit,
                                                       Orchard.check_level_of_water(position_of_fruit, param=1),
                                                       param=1)
-
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Вы должны выбрать рассаду или дерево которые растут на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['no_name'],
+                                           dictionary['line'])
 
     @staticmethod
     def cure_something_in_a_garden_plot(gui=False, show_status_view=None, input_gui=None) -> None:
@@ -218,62 +196,56 @@ class GardenArea:
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
                 elif SeedBed.check_illness(position_of_vegetable, param=0) == 0:
-                    show_status_view("Этой рассаде лечение не требуется")
+                    show_status_view(dictionary['cure_non_seed'])
                 else:
-                    show_status_view("Рассада успешно вылечена")
+                    show_status_view(dictionary['cure_seed'])
                     SeedBed.regeneration_illness(position_of_vegetable, param=0)
-
                 if position_of_fruit is None:
                     pass
                 elif Orchard.check_illness(position_of_fruit, param=1) == 0:
-                    show_status_view("Этому дереву лечение не требуется")
+                    show_status_view(dictionary['cure_non_fruit'])
                 else:
-                    show_status_view("Дерево успешно вылечено")
+                    show_status_view(dictionary['cure_fruit'])
                     Orchard.regeneration_illness(position_of_fruit, param=1)
-
             except NameError:
-                show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
+                show_status_view(dictionary['no_name'])
         else:
             try:
-                object_of_the_plot: str = input("Какую рассаду или дерево вы хотите вылечить? -> ")
+                object_of_the_plot: str = input(dictionary['cure'])
                 position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
                 position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
                 elif SeedBed.check_illness(position_of_vegetable, param=0) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этой рассаде лечение не требуется",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['cure_non_seed'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Рассада успешно вылечена",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['cure_seed'],
+                                               dictionary['line'])
                     SeedBed.regeneration_illness(position_of_vegetable, param=0)
-
                 if position_of_fruit is None:
                     pass
                 elif Orchard.check_illness(position_of_fruit, param=1) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этому дереву лечение не требуется",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['cure_non_fruit'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Дерево успешно вылечено",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['cure_fruit'],
+                                               dictionary['line'])
                     Orchard.regeneration_illness(position_of_fruit, param=1)
-
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Вы должны выбрать рассаду или дерево которые растут на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['no_name'],
+                                           dictionary['line'])
 
     @staticmethod
     def get_rid_of_pests(gui=False, show_status_view=None, input_gui=None) -> None:
@@ -285,63 +257,57 @@ class GardenArea:
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
                 elif SeedBed.check_vermin(position_of_vegetable, param=0) == 0:
-                    show_status_view("Этой рассаде не требуется избавление от вредителей")
+                    show_status_view(dictionary['pests_non_seed'])
                 else:
-                    show_status_view("Рассада успешно избавлена от вредителей")
+                    show_status_view(dictionary['pests_seed'])
                     SeedBed.regeneration_vermin(position_of_vegetable, param=0)
-
                 if position_of_fruit is None:
                     pass
                 elif Orchard.check_vermin(position_of_fruit, param=1) == 0:
-                    show_status_view("Этому дереву не требуется избавление от вредителей")
+                    show_status_view(dictionary['pests_non_fruit'])
                 else:
-                    show_status_view("Дерево успешно избавдено от вредителей")
+                    show_status_view(dictionary['pests_fruit'])
                     Orchard.regeneration_vermin(position_of_fruit, param=1)
-
             except NameError:
-                show_status_view("Вы должны выбрать рассаду или дерево которые растут на вашем участке")
+                show_status_view(dictionary['no_name'])
         else:
             try:
-                object_of_the_plot: str = input("Какую рассаду или дерево вы хотите избавить от вредителей? -> ")
+                object_of_the_plot: str = input(dictionary['pests'])
 
                 position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
                 position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
                 elif SeedBed.check_vermin(position_of_vegetable, param=0) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этой рассаде не требуется избавление от вредителей",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['pests_non_seed'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Рассада успешно избавлена от вредителей",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['pests_seed'],
+                                               dictionary['line'])
                     SeedBed.regeneration_vermin(position_of_vegetable, param=0)
-
                 if position_of_fruit is None:
                     pass
                 elif Orchard.check_vermin(position_of_fruit, param=1) == 0:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Этому дереву не требуется избавление от вредителей",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['pests_non_fruit'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Дерево успешно избавлено от вредителей",
-                                               "---------------------------------------")
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['pests_fruit'],
+                                               dictionary['line'])
                     Orchard.regeneration_vermin(position_of_fruit, param=1)
-
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Вы должны выбрать рассаду или дерево которые растут на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['no_name'],
+                                           dictionary['line'])
 
     @staticmethod
     def use_fertilizer(gui=False, show_status_view=None, input_gui=None) -> None:
@@ -354,67 +320,54 @@ class GardenArea:
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
-                elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
-
-                    show_status_view("Рассада уже созрела и не нуждаеться в удобрении")
-
+                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary['ripe']:
+                    show_status_view(dictionary['fertilizer_non_seed'])
                 else:
-
                     fertilizer.using_actions(gui, show_status_view)
                     SeedBed.change_height(position_of_vegetable, param=0)
-
                 if position_of_fruit is None:
                     pass
-                elif Orchard.check_height(position_of_fruit, param=1) == "Период плодоношения":
-
-                    show_status_view("Плоды дерева уже созрели. Дерево не нуждаеться в удобрении")
-
+                elif Orchard.check_height(position_of_fruit, param=1) == dictionary['fruiting']:
+                    show_status_view(dictionary['fertilizer_non_fruit'])
                 else:
-
                     fertilizer.using_actions(gui, show_status_view)
                     Orchard.change_height(position_of_fruit, param=1)
-
             except NameError:
                 show_status_view(dictionary["no_name"])
         else:
             try:
-                object_of_the_plot: str = input("Какую рассаду или дерево вы хотите удобрить? -> ")
-
+                object_of_the_plot: str = input(dictionary['fertilizer'])
                 position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
                 position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
                 if position_of_vegetable is None and position_of_fruit is None:
                     raise NameError
-
                 if position_of_vegetable is None:
                     pass
-                elif SeedBed.check_height(position_of_vegetable, param=0) == "Плод созрел":
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Рассада уже созрела и не нуждаеться в удобрении",
-                                               "---------------------------------------")
+                elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary['ripe']:
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['fertilizer_non_seed'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
+                    ViewPrint.show_status_view(dictionary['line'],
                                                "",
-                                               "---------------------------------------")
+                                               dictionary['line'])
                     fertilizer.using_actions()
                     SeedBed.change_height(position_of_vegetable, param=0)
-
                 if position_of_fruit is None:
                     pass
-                elif Orchard.check_height(position_of_fruit, param=1) == "Период плодоношения":
-                    ViewPrint.show_status_view("---------------------------------------",
-                                               "Плоды дерева уже созрели. Дерево не нуждаеться в удобрении",
-                                               "---------------------------------------")
+                elif Orchard.check_height(position_of_fruit, param=1) == dictionary['fruiting']:
+                    ViewPrint.show_status_view(dictionary['line'],
+                                               dictionary['fertilizer_non_fruit'],
+                                               dictionary['line'])
                 else:
-                    ViewPrint.show_status_view("---------------------------------------",
+                    ViewPrint.show_status_view(dictionary['line'],
                                                "",
-                                               "---------------------------------------")
+                                               dictionary['line'])
                     fertilizer.using_actions()
                     Orchard.change_height(position_of_fruit, param=1)
-
             except NameError:
                 ViewPrint.show_status_view(dictionary["line"], dictionary["no_name"], dictionary["line"])
 
@@ -444,27 +397,26 @@ class GardenArea:
                     else:
                         raise NameError
                 garden.new_object(name=object_of_the_plot, param=0)
-                show_status_view("Посадка произошла успешно")
+                show_status_view(dictionary['create'])
 
             except NameError:
-                show_status_view("Такая рассада уже присутствует посадите другую")
+                show_status_view(dictionary['create_non_seed'])
         else:
             try:
-                object_of_the_plot: str = input("Введите имя рассады которую вы хотите посадить: ")
+                object_of_the_plot: str = input(dictionary['create_seed'])
                 for i in range(0, len(name)):
                     if object_of_the_plot != name[i]:
                         continue
                     else:
                         raise NameError
                 garden.new_object(name=object_of_the_plot, param=0)
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Посадка произошла успешно",
-                                           "---------------------------------------")
-
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['create'],
+                                           dictionary['line'])
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Такая рассада уже присутствует посадите другую",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['create_non_seed'],
+                                           dictionary['line'])
 
     @staticmethod
     def del_seedlings(gui=False, show_status_view=None, input_gui=None):
@@ -482,14 +434,13 @@ class GardenArea:
                 if value is False:
                     raise NameError
                 SeedBed.deleting_information(position_of_vegetable, param=0)
-                show_status_view("Успешно выкопали рассаду")
-
+                show_status_view(dictionary['del'])
             except NameError:
-                show_status_view("Такой рассады нет на вашем участке")
+                show_status_view(dictionary['del_non_seed'])
         else:
             try:
                 object_of_the_plot: str = input(
-                    "Введите имя рассады которую вы хотите выкопать из своего участка: ")
+                    dictionary['del_seed'])
                 for i in range(0, len(name)):
                     if object_of_the_plot == name[i]:
                         value = True
@@ -498,13 +449,13 @@ class GardenArea:
                 if value is False:
                     raise NameError
                 SeedBed.deleting_information(position_of_vegetable, param=0)
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Успешно выкопали рассаду",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['del'],
+                                           dictionary['line'])
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Такой рассады нет на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['del_non_seed'],
+                                           dictionary['line'])
 
     @staticmethod
     def create_tree(gui=False, show_status_view=None, input_gui=None):
@@ -519,27 +470,25 @@ class GardenArea:
                     else:
                         raise NameError
                 trees.new_object(name=object_of_the_plot, param=1)
-                show_status_view("Посадка произошла успешно")
-
+                show_status_view(dictionary['create'])
             except NameError:
-                show_status_view("Такое дерево уже присутствует посадите другое")
+                show_status_view(dictionary['create_non_fruit'])
         else:
             try:
-                object_of_the_plot: str = input("Введите имя дерева которое вы хотите посадить: ")
+                object_of_the_plot: str = input(dictionary['create_fruit'])
                 for i in range(0, len(name)):
                     if object_of_the_plot != name[i]:
                         continue
                     else:
                         raise NameError
                 trees.new_object(name=object_of_the_plot, param=1)
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Посадка произошла успешно",
-                                           "---------------------------------------")
-
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['create'],
+                                           dictionary['line'])
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Такое дерево уже присутствует посадите другое",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['create_non_fruit'],
+                                           dictionary['line'])
 
     @staticmethod
     def del_tree(gui=False, show_status_view=None, input_gui=None):
@@ -557,14 +506,13 @@ class GardenArea:
                 if value is False:
                     raise NameError
                 Orchard.deleting_information(position_of_fruits, param=1)
-                show_status_view("Успешно выкорчевали дерево")
-
+                show_status_view(dictionary['fruit_del'])
             except NameError:
-                show_status_view("Такого дерева нет на вашем участке")
+                show_status_view(dictionary['del_non_fruit'])
         else:
             try:
                 object_of_the_plot: str = input(
-                    "Введите имя дерева которое вы хотите выкорчевать из своего участка: ")
+                    dictionary['del_fruit'])
                 for i in range(0, len(name)):
                     if object_of_the_plot == name[i]:
                         value = True
@@ -573,14 +521,13 @@ class GardenArea:
                 if value is False:
                     raise NameError
                 Orchard.deleting_information(position_of_fruits, param=1)
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Успешно выкорчевали дерево",
-                                           "---------------------------------------")
-
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['fruit_del'],
+                                           dictionary['line'])
             except NameError:
-                ViewPrint.show_status_view("---------------------------------------",
-                                           "Такого дерева нет на вашем участке",
-                                           "---------------------------------------")
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['del_non_fruit'],
+                                           dictionary['line'])
 
     @staticmethod
     def info(gui=False, show_info_view=None):
