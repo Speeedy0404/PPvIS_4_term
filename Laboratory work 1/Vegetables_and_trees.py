@@ -13,8 +13,8 @@ def how_many_days_to_grow() -> int:
 
 
 def how_many_days_until_the_next_stage(number: int) -> int:
-    inteval = number / 6
-    return int(inteval)
+    interval = number / 6
+    return int(interval)
 
 
 class SeedsAndTrees:
@@ -91,6 +91,7 @@ class SeedsAndTrees:
 class GrowthAndDeath(SeedsAndTrees):
 
     def __init__(self, name: str, creation: int, param: int) -> None:
+        super().__init__(name, creation, param)
         if creation == 0:
             parameters = ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param)
             self.__day = parameters[0]
@@ -105,10 +106,10 @@ class GrowthAndDeath(SeedsAndTrees):
             self.__hp = 9
             ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param, self.__how_many_days_to_grow,
                                                                     self.__how_many_days_until_the_next_stage)
-        super().__init__(name, creation, param)
 
     def del_object(self, param: int) -> None:
         name = self.info_name
+
         ReadOverwritingGrowthAndDeath.deletion(name, param)
 
     def change_hp(self, param: int) -> int:

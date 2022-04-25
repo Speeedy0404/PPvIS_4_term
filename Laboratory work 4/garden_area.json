@@ -1,0 +1,15 @@
+{
+   "fruits": {
+      "Apple": {},
+      "Plum": {},
+      "Pear": {},
+      "Apple2": {}
+   },
+   "vegetables": {
+      "Tomato": {},
+      "Carrot": {},
+      "Cucumber": {},
+      "Radish": {},
+      "Parrot": {}
+   }
+}

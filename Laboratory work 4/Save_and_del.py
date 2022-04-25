@@ -247,10 +247,6 @@ class ReadOverwritingGardenBedAndTrees:
                     names.append(name)
         return names
 
-    @staticmethod
-    def overwriting(way: str, length: int, names: list) -> None:
-        pass
-
 
 class ReadOverwritingWeather:
 

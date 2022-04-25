@@ -13,8 +13,8 @@ def how_many_days_to_grow() -> int:
 
 
 def how_many_days_until_the_next_stage(number: int) -> int:
-    inteval = number / 6
-    return int(inteval)
+    interval = number / 6
+    return int(interval)
 
 
 class SeedsAndTrees:

@@ -1,464 +1,380 @@
 from actions import *
 from Weather import *
 from garden_bed_and_trees import *
+from view_cli import *
+from dictionary import dictionary
 
 
 class GardenArea:
 
-    def __init__(self, tag: str, collect, weed, water, cure, pests, fertilizer, seedlingsnew, treenew, seedlingsdel,
-                 treenewdel, info, newday) -> None:
-        self.__tag = tag
-        garden = SeedBed()
-        trees = Orchard()
-        weather = Weather()
-        weeding = Weeding()
-        watering = Watering()
-        fertillizer = Fertilizer()
-        self.processing(garden, trees, weather, weeding, watering, fertillizer, collect, weed, water, cure, pests,
-                        fertilizer, seedlingsnew, treenew, seedlingsdel, treenewdel, info, newday)
-
-    def processing(self, garden, trees, weather, weeding, watering, fertillizer, collect, weed, water, cure, pests,
-                   fertilizer, seedlingsnew, treenew, seedlingsdel, treenewdel, info, newday) -> None:
-
-        if collect:
-            GardenArea.collection()
-        elif weed:
-            GardenArea.weeding_seedlings(weeding)
-        elif water:
-            GardenArea.watering_the_garden_plot(watering)
-        elif cure:
-            GardenArea.cure_something_in_a_garden_plot()
-        elif pests:
-            GardenArea.get_rid_of_pests()
-        elif fertilizer:
-            GardenArea.use_fertillizer(fertillizer)
-        elif seedlingsnew:
-            value: bool = False
-            while value != True:
-                try:
-                    del_name: str = input("Введите имя рассады которую вы хотите посадить: ")
-                    name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                    count: int = len(name)
-                    value = True
-                    for i in range(0, count):
-                        if del_name != name[i]:
-                            continue
-                        else:
-                            raise NameError
-                    garden.new_object(name=del_name, param=0)
-                    print("---------------------------------------")
-                    print("Посадка произошла успешно")
-                    print("---------------------------------------")
-
-                except(NameError):
-                    print("---------------------------------------")
-                    print("Такая рассада уже присутствует посадите другую")
-                    print("---------------------------------------")
-        elif treenew:
-            value: bool = False
-            while value != True:
-                try:
-                    del_name: str = input("Введите имя дерева которое вы хотите посадить: ")
-                    name: list[str] = Orchard.names('fruits_in_garden.txt')
-                    count: int = len(name)
-                    value = True
-                    for i in range(0, count):
-                        if del_name != name[i]:
-                            continue
-                        else:
-                            raise NameError
-                    trees.new_object(name=del_name, param=1)
-                    print("---------------------------------------")
-                    print("Посадка произошла успешно")
-                    print("---------------------------------------")
-
-                except(NameError):
-                    print("---------------------------------------")
-                    print("Такое дерево уже присутствует посадите другое")
-                    print("---------------------------------------")
-        elif seedlingsdel:
-            value: bool = False
-            i_d: int = 0
-            while value != True:
-                try:
-                    del_name: str = input("Введите имя рассады которую вы хотите выкопать из своего участка: ")
-                    name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                    count: int = len(name)
-                    for i in range(0, count):
-                        if del_name == name[i]:
-                            value = True
-                            i_d = i
-                            break
-                    if value == False:
-                        raise NameError
-                    SeedBed.deleting_information(i_d, param=0)
-                    print("---------------------------------------")
-                    print("Успешно выкопали рассаду")
-                    print("---------------------------------------")
-
-                except(NameError):
-                    value = True
-                    print("---------------------------------------")
-                    print("Такой рассады нет на вашем участке")
-                    print("---------------------------------------")
-        elif treenewdel:
-            value: bool = False
-            i_t: int = 0
-            while value != True:
-                try:
-                    del_name: str = input(
-                        "Введите имя дерева которое вы хотите выкорчевать из своего участка: ")
-                    name: list[str] = Orchard.names('fruits_in_garden.txt')
-                    count: int = len(name)
-                    for i in range(0, count):
-                        if del_name == name[i]:
-                            value = True
-                            i_t = i
-                            break
-                    if value == False:
-                        raise NameError
-                    Orchard.deleting_information(i_t, param=1)
-                    print("---------------------------------------")
-                    print("Успешно выкорчевали дерево")
-                    print("---------------------------------------")
-
-                except(NameError):
-                    value = True
-                    print("---------------------------------------")
-                    print("Такого дерева нет на вашем участке")
-                    print("---------------------------------------")
-        elif info:
-            print(self.__tag)
-            print("Погода сегодня: {}".format(weather.info_weather))
-            SeedBed.show_information_about_objects(param=0)
-            SeedBed.status(param=0)
-            Orchard.show_information_about_objects(param=1)
-            Orchard.status(param=1)
-        elif newday:
-            GardenArea.garden_plot_next_day(weather, garden, trees)
-            print("Погода сегодня: {}".format(weather.info_weather))
-            SeedBed.show_information_about_objects(param=0)
-            SeedBed.status(param=0)
-            Orchard.show_information_about_objects(param=1)
-            Orchard.status(param=1)
+    @staticmethod
+    def make_action(action_name: str) -> None:
+        action = action_map.get(action_name)
+        action()
 
     @staticmethod
     def collection() -> None:
-        i_g = None
-        i_t = None
-        value: bool = False
-        while (not value):
-            try:
-                delta_name: str = input("Какую рассаду или плоды дерева которые вы хотите собрать? -> ")
+        try:
+            object_of_the_plot: str = input(dictionary["collect"])
+            position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
+            position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
-                name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                count: int = len(name)
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_g = delta_i
-                        break
-
-                name: list[str] = Orchard.names('fruits_in_garden.txt')
-                count: int = len(name)
-                value: bool = True
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_t = delta_i
-                        break
-
-                if i_g == None and i_t == None:
-                    raise NameError
-
-                if i_g == None:
-                    pass
-                elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
-                    print("---------------------------------------")
-                    print("Рассада успешно собрана")
-                    SeedBed.deleting_information(i_g, param=0)
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    print("Эта рассада еще не выросла")
-                    print("---------------------------------------")
-
-                if i_t == None:
-                    pass
-                elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
-                    print("---------------------------------------")
-                    print("Плоды дерева успешно собраны")
-                    Orchard.deleting_information(i_t, param=1)
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    print("Это дерево еще не созрело")
-                    print("---------------------------------------")
-
-            except(NameError):
-                print("---------------------------------------")
-                print("Вы должны выбрать рассаду или дерево которые растут на вашем участке  ")
-                print("---------------------------------------")
+            if position_of_vegetable is None and position_of_fruit is None:
+                raise NameError
+            if position_of_vegetable is None:
+                pass
+            elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary["ripe"]:
+                ViewPrint.show_status_view(dictionary["line"], dictionary["collect_seed"],
+                                           dictionary["line"])
+                SeedBed.deleting_information(position_of_vegetable, param=0)
+            else:
+                ViewPrint.show_status_view(dictionary["line"],
+                                           dictionary["no_grow_seed"],
+                                           dictionary["line"])
+            if position_of_fruit is None:
+                pass
+            elif Orchard.check_height(position_of_fruit, param=1) == dictionary["fruiting"]:
+                ViewPrint.show_status_view(dictionary["line"],
+                                           dictionary["collect_fruit"],
+                                           dictionary["line"])
+                Orchard.deleting_information(position_of_fruit, param=1)
+            else:
+                ViewPrint.show_status_view(dictionary["line"],
+                                           dictionary["no_grow_fruit"],
+                                           dictionary["line"])
+        except NameError:
+            ViewPrint.show_status_view(dictionary["line"],
+                                       dictionary["no_name"],
+                                       dictionary["line"])
 
     @staticmethod
-    def weeding_seedlings(weeding) -> None:
-        i = None
-        value: bool = False
-        while (not value):
-            try:
-                delta_name: str = input("Какую рассаду вы хотите прополоть? -> ")
-                name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                count: int = len(name)
-                value = True
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i = delta_i
-                        break
-                if i == None:
-                    raise NameError
+    def weeding_seedlings() -> None:
+        weeding = Weeding()
 
-                if SeedBed.check_weeds(i) == 0:
-                    print("---------------------------------------")
-                    print("Этой рассаде прополка не требуется")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    weeding.using_actions()
-                    SeedBed.regeneration_weeds(i, param=0)
-                    print("---------------------------------------")
+        try:
+            object_of_the_plot: str = input(dictionary["weed"])
+            position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
 
-            except(NameError):
-                print("---------------------------------------")
-                print("Вы должны выбрать рассаду которая растёт на вашем участке  ")
-                print("---------------------------------------")
+            if position_of_vegetable is None:
+                raise NameError
+            if SeedBed.check_weeds(position_of_vegetable) == 0:
+                ViewPrint.show_status_view(dictionary["line"],
+                                           dictionary["weeding_non"],
+                                           dictionary["line"])
+            else:
+                ViewPrint.show_status_view(dictionary["line"],
+                                           "",
+                                           dictionary["line"])
+                weeding.using_actions()
+                SeedBed.regeneration_weeds(position_of_vegetable, param=0)
+        except NameError:
+            ViewPrint.show_status_view(dictionary["line"],
+                                       dictionary["no_seed"],
+                                       dictionary["line"])
 
     @staticmethod
-    def watering_the_garden_plot(watering) -> None:
-        i_g = None
-        i_t = None
-        value: bool = False
-        while (not value):
-            try:
-                delta_name: str = input("Какую рассаду или дерево вы хотите полить? -> ")
+    def watering_the_garden_plot() -> None:
+        watering = Watering()
 
-                name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                count: int = len(name)
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_g = delta_i
-                        break
+        try:
+            object_of_the_plot: str = input(dictionary['water'])
+            position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
+            position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
-                name: list[str] = Orchard.names('fruits_in_garden.txt')
-                count: int = len(name)
-                value: bool = True
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_t = delta_i
-                        break
-
-                if i_g == None and i_t == None:
-                    raise NameError
-
-                if i_g == None:
-                    pass
-                elif SeedBed.check_level_of_water(i_g, param=0) == 0:
-                    print("---------------------------------------")
-                    print("Этой рассаде поливка не требуется. Земля полностью пропитана водой")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    watering.using_actions()
-                    SeedBed.regenerate_level_of_water(i_g, SeedBed.check_level_of_water(i_g, param=0),
-                                                      param=0)
-                    print("---------------------------------------")
-
-                if i_t == None:
-                    pass
-                elif Orchard.check_level_of_water(i_t, param=1) == 0:
-                    print("---------------------------------------")
-                    print("Этому дереву поливка не требуется. Земля полностью пропитана водой")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    watering.using_actions()
-                    Orchard.regenerate_level_of_water(i_t, Orchard.check_level_of_water(i_t, param=1),
-                                                      param=1)
-                    print("---------------------------------------")
-
-            except(NameError):
-                print("---------------------------------------")
-                print("Вы должны выбрать рассаду или дерево которые растут на вашем участке  ")
-                print("---------------------------------------")
+            if position_of_vegetable is None and position_of_fruit is None:
+                raise NameError
+            if position_of_vegetable is None:
+                pass
+            elif SeedBed.check_level_of_water(position_of_vegetable, param=0) == 0:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['water_non_seed'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           "",
+                                           dictionary['line'])
+                watering.using_actions()
+                SeedBed.regenerate_level_of_water(position_of_vegetable,
+                                                  SeedBed.check_level_of_water(position_of_vegetable, param=0),
+                                                  param=0)
+            if position_of_fruit is None:
+                pass
+            elif Orchard.check_level_of_water(position_of_fruit, param=1) == 0:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['water_non_fruit'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           "",
+                                           dictionary['line'])
+                watering.using_actions()
+                Orchard.regenerate_level_of_water(position_of_fruit,
+                                                  Orchard.check_level_of_water(position_of_fruit, param=1),
+                                                  param=1)
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['no_name'],
+                                       dictionary['line'])
 
     @staticmethod
     def cure_something_in_a_garden_plot() -> None:
-        i_g = None
-        i_t = None
-        value: bool = False
-        while (not value):
-            try:
-                delta_name: str = input("Какую рассаду или дерево вы хотите вылечить? -> ")
+        try:
+            object_of_the_plot: str = input(dictionary['cure'])
+            position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
+            position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
-                name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                count: int = len(name)
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_g = delta_i
-                        break
-
-                name: list[str] = Orchard.names('fruits_in_garden.txt')
-                count: int = len(name)
-                value: bool = True
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_t = delta_i
-                        break
-
-                if i_g == None and i_t == None:
-                    raise NameError
-
-                if i_g == None:
-                    pass
-                elif SeedBed.check_illness(i_g, param=0) == 0:
-                    print("---------------------------------------")
-                    print("Этой рассаде лечение не требуется")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    print("Рассада успешно вылечена")
-                    SeedBed.regeneration_illness(i_g, param=0)
-                    print("---------------------------------------")
-
-                if i_t == None:
-                    pass
-                elif Orchard.check_illness(i_t, param=1) == 0:
-                    print("---------------------------------------")
-                    print("Этому дереву лечение не требуется")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    print("Дерево успешно вылечено")
-                    Orchard.regeneration_illness(i_t, param=1)
-                    print("---------------------------------------")
-
-            except(NameError):
-                print("---------------------------------------")
-                print("Вы должны выбрать рассаду или дерево которые растут на вашем участке  ")
-                print("---------------------------------------")
+            if position_of_vegetable is None and position_of_fruit is None:
+                raise NameError
+            if position_of_vegetable is None:
+                pass
+            elif SeedBed.check_illness(position_of_vegetable, param=0) == 0:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['cure_non_seed'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['cure_seed'],
+                                           dictionary['line'])
+                SeedBed.regeneration_illness(position_of_vegetable, param=0)
+            if position_of_fruit is None:
+                pass
+            elif Orchard.check_illness(position_of_fruit, param=1) == 0:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['cure_non_fruit'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['cure_fruit'],
+                                           dictionary['line'])
+                Orchard.regeneration_illness(position_of_fruit, param=1)
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['no_name'],
+                                       dictionary['line'])
 
     @staticmethod
     def get_rid_of_pests() -> None:
-        i_g = None
-        i_t = None
-        value: bool = False
-        while (not value):
-            try:
-                delta_name: str = input("Какую рассаду или дерево вы хотите избавить от вредителей? -> ")
+        try:
+            object_of_the_plot: str = input(dictionary['pests'])
 
-                name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                count: int = len(name)
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_g = delta_i
-                        break
+            position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
+            position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
-                name: list[str] = Orchard.names('fruits_in_garden.txt')
-                count: int = len(name)
-                value: bool = True
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_t = delta_i
-                        break
-
-                if i_g == None and i_t == None:
-                    raise NameError
-
-                if i_g == None:
-                    pass
-                elif SeedBed.check_vermin(i_g, param=0) == 0:
-                    print("---------------------------------------")
-                    print("Этой рассаде не требуется избавление от вредителей")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    print("Рассада успешно избавлена от вредителей")
-                    SeedBed.regeneration_vermin(i_g, param=0)
-                    print("---------------------------------------")
-
-                if i_t == None:
-                    pass
-                elif Orchard.check_vermin(i_t, param=1) == 0:
-                    print("---------------------------------------")
-                    print("Этому дереву не требуется избавление от вредителей")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    print("Дерево успешно избавдено от вредителей")
-                    Orchard.regeneration_vermin(i_t, param=1)
-                    print("---------------------------------------")
-
-            except(NameError):
-                print("---------------------------------------")
-                print("Вы должны выбрать рассаду или дерево которые растут на вашем участке  ")
-                print("---------------------------------------")
+            if position_of_vegetable is None and position_of_fruit is None:
+                raise NameError
+            if position_of_vegetable is None:
+                pass
+            elif SeedBed.check_vermin(position_of_vegetable, param=0) == 0:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['pests_non_seed'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['pests_seed'],
+                                           dictionary['line'])
+                SeedBed.regeneration_vermin(position_of_vegetable, param=0)
+            if position_of_fruit is None:
+                pass
+            elif Orchard.check_vermin(position_of_fruit, param=1) == 0:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['pests_non_fruit'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['pests_fruit'],
+                                           dictionary['line'])
+                Orchard.regeneration_vermin(position_of_fruit, param=1)
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['no_name'],
+                                       dictionary['line'])
 
     @staticmethod
-    def use_fertillizer(fertillizer) -> None:
-        i_g = None
-        i_t = None
-        value: bool = False
-        while (not value):
-            try:
-                delta_name: str = input("Какую рассаду или дерево вы хотите удобрить? -> ")
-                name: list[str] = SeedBed.names('vegetables_in_garden.txt')
-                count: int = len(name)
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_g = delta_i
-                        break
+    def use_fertilizer() -> None:
+        fertilizer = Fertilizer()
+        try:
+            object_of_the_plot: str = input(dictionary['fertilizer'])
+            position_of_vegetable = GardenArea.position("vegetables", object_of_the_plot)
+            position_of_fruit = GardenArea.position("fruits", object_of_the_plot)
 
-                name: list[str] = Orchard.names('fruits_in_garden.txt')
-                count: int = len(name)
-                value: bool = True
-                for delta_i in range(0, count):
-                    if delta_name == name[delta_i]:
-                        i_t = delta_i
-                        break
-
-                if i_g == None and i_t == None:
-                    raise NameError
-
-                if i_g == None:
-                    pass
-                elif SeedBed.check_height(i_g, param=0) == "Плод созрел":
-                    print("---------------------------------------")
-                    print("Рассада уже созрела и не нуждаеться в удобрении")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    fertillizer.using_actions()
-                    SeedBed.change_height(i_g, param=0)
-                    print("---------------------------------------")
-
-                if i_t == None:
-                    pass
-                elif Orchard.check_height(i_t, param=1) == "Период плодоношения":
-                    print("---------------------------------------")
-                    print("Плоды дерева уже созрели. Дерево не нуждаеться в удобрении")
-                    print("---------------------------------------")
-                else:
-                    print("---------------------------------------")
-                    fertillizer.using_actions()
-                    Orchard.change_height(i_t, param=1)
-                    print("---------------------------------------")
-
-            except(NameError):
-                print("---------------------------------------")
-                print("Вы должны выбрать рассаду или дерево которые растут на вашем участке  ")
-                print("---------------------------------------")
+            if position_of_vegetable is None and position_of_fruit is None:
+                raise NameError
+            if position_of_vegetable is None:
+                pass
+            elif SeedBed.check_height(position_of_vegetable, param=0) == dictionary['ripe']:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['fertilizer_non_seed'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           "",
+                                           dictionary['line'])
+                fertilizer.using_actions()
+                SeedBed.change_height(position_of_vegetable, param=0)
+            if position_of_fruit is None:
+                pass
+            elif Orchard.check_height(position_of_fruit, param=1) == dictionary['fruiting']:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           dictionary['fertilizer_non_fruit'],
+                                           dictionary['line'])
+            else:
+                ViewPrint.show_status_view(dictionary['line'],
+                                           "",
+                                           dictionary['line'])
+                fertilizer.using_actions()
+                Orchard.change_height(position_of_fruit, param=1)
+        except NameError:
+            ViewPrint.show_status_view(dictionary["line"], dictionary["no_name"], dictionary["line"])
 
     @staticmethod
-    def garden_plot_next_day(weather, garden, trees) -> None:
+    def garden_plot_next_day(show_next_day_view=ViewPrint.show_next_day_view) -> None:
+        weather = Weather()
         weather.changing_the_weather()
+        garden = SeedBed()
+        trees = Orchard()
         garden.change_of_day(param=0)
-        SeedBed.changing_the_water_from_the_weather(weather, param=0)
+        SeedBed.changing_the_water_from_the_weather(weather, param=0, show_next_day_view=show_next_day_view)
         trees.change_of_day(param=1)
-        Orchard.changing_the_water_from_the_weather(weather, param=1)
+        Orchard.changing_the_water_from_the_weather(weather, param=1, show_next_day_view=show_next_day_view)
+
+    @staticmethod
+    def create_seedlings() -> None:
+        SeedBed()
+        Orchard()
+        garden = SeedBed()
+        name: list[str] = SeedBed.names('vegetables')
+
+        try:
+            object_of_the_plot: str = input(dictionary['create_seed'])
+            for i in range(0, len(name)):
+                if object_of_the_plot != name[i]:
+                    continue
+                else:
+                    raise NameError
+            garden.new_object(name=object_of_the_plot, param=0)
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['create'],
+                                       dictionary['line'])
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['create_non_seed'],
+                                       dictionary['line'])
+
+    @staticmethod
+    def del_seedlings() -> None:
+        SeedBed()
+        Orchard()
+        value: bool = False
+        position_of_vegetable: int = 0
+        name: list[str] = SeedBed.names('vegetables')
+
+        try:
+            object_of_the_plot: str = input(
+                dictionary['del_seed'])
+            for i in range(0, len(name)):
+                if object_of_the_plot == name[i]:
+                    value = True
+                    position_of_vegetable = i
+                    break
+            if value is False:
+                raise NameError
+            SeedBed.deleting_information(position_of_vegetable, param=0)
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['del'],
+                                       dictionary['line'])
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['del_non_seed'],
+                                       dictionary['line'])
+
+    @staticmethod
+    def create_tree() -> None:
+        SeedBed()
+        Orchard()
+        trees = Orchard()
+        name: list[str] = Orchard.names('fruits')
+
+        try:
+            object_of_the_plot: str = input(dictionary['create_fruit'])
+            for i in range(0, len(name)):
+                if object_of_the_plot != name[i]:
+                    continue
+                else:
+                    raise NameError
+            trees.new_object(name=object_of_the_plot, param=1)
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['create'],
+                                       dictionary['line'])
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['create_non_fruit'],
+                                       dictionary['line'])
+
+    @staticmethod
+    def del_tree() -> None:
+        SeedBed()
+        Orchard()
+        value: bool = False
+        position_of_fruits: int = 0
+        name: list[str] = Orchard.names('fruits')
+
+        try:
+            object_of_the_plot: str = input(
+                dictionary['del_fruit'])
+            for i in range(0, len(name)):
+                if object_of_the_plot == name[i]:
+                    value = True
+                    position_of_fruits = i
+                    break
+            if value is False:
+                raise NameError
+            Orchard.deleting_information(position_of_fruits, param=1)
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['fruit_del'],
+                                       dictionary['line'])
+        except NameError:
+            ViewPrint.show_status_view(dictionary['line'],
+                                       dictionary['del_non_fruit'],
+                                       dictionary['line'])
+
+    @staticmethod
+    def info() -> None:
+        weather = Weather()
+
+        ViewPrint.show_status_view(dictionary['line'], "Престиж", "Погода сегодня: {}".format(weather.info_weather))
+        ViewPrint.show_info_view(SeedBed.show_information_about_objects, SeedBed.status,
+                                 Orchard.show_information_about_objects, Orchard.status)
+
+    @staticmethod
+    def new_day() -> None:
+        GardenArea.garden_plot_next_day()
+
+    @staticmethod
+    def position(culture: str, name: str):
+        names = []
+        if culture == "fruits":
+            names: list[str] = Orchard.names('fruits')
+        elif culture == "vegetables":
+            names: list[str] = SeedBed.names('vegetables')
+        if names is None:
+            return None
+        for changed_position in range(0, len(names)):
+            if name == names[changed_position]:
+                return changed_position
+        return None
+
+
+action_map = {
+    'collect': GardenArea.collection,
+    'weed': GardenArea.weeding_seedlings,
+    'water': GardenArea.watering_the_garden_plot,
+    'cure': GardenArea.cure_something_in_a_garden_plot,
+    'pests': GardenArea.get_rid_of_pests,
+    'fertilizer': GardenArea.use_fertilizer,
+    'seedlings_new': GardenArea.create_seedlings,
+    'seedlings_del': GardenArea.del_seedlings,
+    'tree_new': GardenArea.create_tree,
+    'tree_del': GardenArea.del_tree,
+    'info': GardenArea.info,
+    'new_day': GardenArea.new_day
+}

@@ -1,4 +1,4 @@
-class View:
+class ViewPrint:
 
     @staticmethod
     def show_info_view(seed_bed_show_information_about_objects, seed_bed_status,

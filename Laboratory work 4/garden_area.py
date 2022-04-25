@@ -384,6 +384,8 @@ class GardenArea:
 
     @staticmethod
     def create_seedlings(gui=False, show_status_view=None, input_gui=None):
+        SeedBed()
+        Orchard()
         garden = SeedBed()
         name: list[str] = SeedBed.names('vegetables')
         if gui:
@@ -418,6 +420,8 @@ class GardenArea:
 
     @staticmethod
     def del_seedlings(gui=False, show_status_view=None, input_gui=None):
+        SeedBed()
+        Orchard()
         value: bool = False
         position_of_vegetable: int = 0
         name: list[str] = SeedBed.names('vegetables')
@@ -457,6 +461,8 @@ class GardenArea:
 
     @staticmethod
     def create_tree(gui=False, show_status_view=None, input_gui=None):
+        SeedBed()
+        Orchard()
         trees = Orchard()
         name: list[str] = Orchard.names('fruits')
         if gui:
@@ -490,6 +496,8 @@ class GardenArea:
 
     @staticmethod
     def del_tree(gui=False, show_status_view=None, input_gui=None):
+        SeedBed()
+        Orchard()
         value: bool = False
         position_of_fruits: int = 0
         name: list[str] = Orchard.names('fruits')
@@ -534,7 +542,7 @@ class GardenArea:
             show_info_view("Престиж", weather, SeedBed.show_information_about_objects, SeedBed.status,
                            Orchard.show_information_about_objects, Orchard.status)
         elif gui is False:
-            ViewPrint.show_status_view("", "Престиж", "Погода сегодня: {}".format(weather.info_weather))
+            ViewPrint.show_status_view(dictionary['line'], "Престиж", "Погода сегодня: {}".format(weather.info_weather))
             ViewPrint.show_info_view(SeedBed.show_information_about_objects, SeedBed.status,
                                      Orchard.show_information_about_objects, Orchard.status)
 
