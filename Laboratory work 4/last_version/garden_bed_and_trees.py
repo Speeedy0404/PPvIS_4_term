@@ -217,7 +217,9 @@ class GardenBedAndTrees:
 
     @staticmethod
     def show_information_about_objects(param: int, gui=False, root=None, list_object=None, label=None) -> None:
-        iterations = len(list_object)
+        iterations = None
+        if gui:
+            iterations = len(list_object)
         if gui:
             if param == 0:
                 list_object.append(label(text="---------------------------------------"))
@@ -549,7 +551,9 @@ class GardenBedAndTrees:
 
         name = []
         count = 0
-        iterations = len(list_objects)
+        iterations = None
+        if gui:
+            iterations = len(list_objects)
         screen = None
         garden = None
         vermin = None
@@ -611,16 +615,18 @@ class GardenBedAndTrees:
                 print("---------------------------------------")
 
         if param == 0:
-            screen = root.inffo
-            garden = GardenBedAndTrees.__vegetables_in_garden
-            vermin = GardenBedAndTrees.__vermin_of_vegetables
-            illness = GardenBedAndTrees.__illness_of_vegetables
+            if gui:
+                screen = root.inffo
+                garden = GardenBedAndTrees.__vegetables_in_garden
+                vermin = GardenBedAndTrees.__vermin_of_vegetables
+                illness = GardenBedAndTrees.__illness_of_vegetables
 
         elif param == 1:
-            screen = root.fruits
-            garden = GardenBedAndTrees.__fruits_in_garden
-            vermin = GardenBedAndTrees.__vermin_of_fruits
-            illness = GardenBedAndTrees.__illness_of_fruits
+            if gui:
+                screen = root.fruits
+                garden = GardenBedAndTrees.__fruits_in_garden
+                vermin = GardenBedAndTrees.__vermin_of_fruits
+                illness = GardenBedAndTrees.__illness_of_fruits
 
         if gui:
             for i in range(0, count):
