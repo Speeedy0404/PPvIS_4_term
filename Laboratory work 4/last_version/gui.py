@@ -1,16 +1,12 @@
-import re
-import os
 from kivy.app import App
 from kivy.uix.label import Label
-from kivy.uix.widget import Widget
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
-
+from garden_area import GardenArea
 from garden_bed_and_trees import SeedBed, Orchard
 
 Config.set('graphics', 'resizable', 0)
@@ -18,8 +14,6 @@ Config.set('graphics', 'width', 1300)
 Config.set('graphics', 'height', 800)
 
 from kivy.uix.textinput import TextInput
-
-from garden_area import GardenArea
 
 Builder.load_string('''
 <ItemTextInput@TextInput>:
@@ -491,10 +485,11 @@ class View:
         Garden.list.append(Label(text='Погода {}'.format(weather.info_weather)))
         Controller.root.inffo.add_widget(Garden.list[vegetables])
 
-        seed_bed_show_information_about_objects(param=0, gui=Garden.gui, root=Controller.root, list=Garden.list,
+        seed_bed_show_information_about_objects(param=0, gui=Garden.gui, root=Controller.root, list_object=Garden.list,
                                                 label=Label)
         seed_bed_status(param=0, gui=Garden.gui, root=Controller.root, list_objects=Garden.list, label=Label)
-        orchard_show_information_about_objects(param=1, gui=Garden.gui, root=Controller.root, list=Garden.list_fruits,
+        orchard_show_information_about_objects(param=1, gui=Garden.gui, root=Controller.root,
+                                               list_object=Garden.list_fruits,
                                                label=Label)
         orchard_status(param=1, gui=Garden.gui, root=Controller.root, list_objects=Garden.list_fruits, label=Label)
         Garden.info = False

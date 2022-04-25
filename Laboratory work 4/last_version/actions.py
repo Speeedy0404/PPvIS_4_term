@@ -3,9 +3,9 @@ class Actions:
     def __init__(self, action: str) -> None:
         self.__offer = action
 
-    def using_actions(self, gui=False, Viewshow_status_view=None) -> None:
+    def using_actions(self, gui=False, show_status_view=None) -> None:
         if gui:
-            Viewshow_status_view(self.__offer)
+            show_status_view(self.__offer)
         else:
             print(self.__offer)
 

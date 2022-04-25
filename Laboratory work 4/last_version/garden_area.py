@@ -378,11 +378,9 @@ class GardenArea:
         garden = SeedBed()
         trees = Orchard()
         garden.change_of_day(param=0, show_next_day_view=show_next_day_view, gui=gui)
-        SeedBed.changing_the_water_from_the_weather(weather, param=0, show_next_day_view=show_next_day_view,
-                                                    gui=gui)
+        SeedBed.changing_the_water_from_the_weather(weather, param=0, show_next_day_view=show_next_day_view)
         trees.change_of_day(param=1, show_next_day_view=show_next_day_view, gui=gui)
-        Orchard.changing_the_water_from_the_weather(weather, param=1, show_next_day_view=show_next_day_view,
-                                                    gui=gui)
+        Orchard.changing_the_water_from_the_weather(weather, param=1, show_next_day_view=show_next_day_view)
 
     @staticmethod
     def create_seedlings(gui=False, show_status_view=None, input_gui=None):
