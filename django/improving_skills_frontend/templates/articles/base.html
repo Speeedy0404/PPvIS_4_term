@@ -1,18 +1,66 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <script src="{% static "js/bootstrap.js" %}"></script>
+
 </head>
 <body>
-{% block main_menu %}
-    <ul>
-        {% for n in navigation %}
-            <li>{{ n }}</li>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="{% url 'home' %}">Speeedy</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% block main_menu %}
+                    {% for n in navigation %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ n.url_name }}">{{ n.title }}</a>
+                        </li>
+                    {% endfor %}
+                {% endblock %}
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Secondary navigation">
+
+        {% if cat_selected == 0 %}
+            <a class="nav-link disabled" href="#">Все категории</a>
+        {% else %}
+            <a class="nav-link" href="{% url 'home' %}">Все категории</a>
+        {% endif %}
+
+        {% for c in cats %}
+            {% if c.pk == cat_selected %}
+                <a class="nav-link disabled" href="#">{{ c.name }}</a>
+            {% else %}
+                <a class="nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            {% endif %}
         {% endfor %}
-    </ul>
-{% endblock %}
+
+    </nav>
+</div>
+
 {% block content %}
 {% endblock %}
+
 </body>
 </html>

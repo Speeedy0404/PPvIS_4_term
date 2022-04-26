@@ -1,14 +1,47 @@
 {% extends 'articles/base.html' %}
 {% block content %}
-    <h1>{{ title }}</h1>
-    <p>Содержимое главной страницы</p>
-    <ul>
-        {% for p in post %}
-            <li>
-                <h2>{{ p.title }}</h2>
-                <p>{{ p.content }}</p>
-                <hr>
-            </li>
-        {% endfor %}
-    </ul>
+
+    <div class="container">
+        <div class="row">
+            {% for p in posts %}
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="wp-block inverse no-margin">
+
+                        <div class="figure">
+                            {% if p.photo %}
+                                <img src="{{ p.photo.url }}" alt="">
+                            {% endif %}
+                            <div class="wp-block-info-over left">
+                                <h2>
+                                    <span class="pull-left">
+                                        <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
+                                    </span>
+                                </h2>
+                            </div>
+                        </div>
+
+                        <div class="mb-1 text-muted">
+                            Дата публикации: {{ p.time_create|date:"d-m-Y H:i:s" }}
+                        </div>
+
+                        <div class="mb-1 text-muted">
+                            Последнее редактирование: {{ p.time_update|date:"d-m-Y H:i:s" }}
+                        </div>
+
+                        <strong class="d-inline-block mb-2 text-success">
+                            Категория: {{ p.cat }}
+                        </strong>
+
+                        <p>
+                            {% autoescape off %}
+                                {{ p.content|linebreaks|truncatewords:30 }}
+                            {% endautoescape %}
+                        </p>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}
