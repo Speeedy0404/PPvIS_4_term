@@ -1,0 +1,5 @@
+{% for n in navigation %}
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url n.url_name  %}">{{ n.title }}</a>
+    </li>
+{% endfor %}

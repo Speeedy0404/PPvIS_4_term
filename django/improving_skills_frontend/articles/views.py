@@ -1,10 +1,10 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
 
 navigation = [
     {'title': 'О сайте', 'url_name': 'about'},
-    {'title': 'Добавить статью', 'url_name': 'addpage'},
+    {'title': 'Добавить статью', 'url_name': 'add_page'},
     {'title': 'Обратная связь', 'url_name': 'contact'},
     {'title': 'Войти', 'url_name': 'login'},
 ]
@@ -12,11 +12,8 @@ navigation = [
 
 def index(request):
     posts = Articles.objects.all()
-    cats = Category.objects.all()
     context = {
         'posts': posts,
-        'cats': cats,
-        'navigation': navigation,
         'title': 'Главная страница',
         'cat_selected': 0,
     }
@@ -24,7 +21,7 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'articles/about.html', {'navigation': navigation, 'title': 'О сайте'})
+    return render(request, 'articles/about.html', {'title': 'О сайте'})
 
 
 def addpage(request):
@@ -39,23 +36,27 @@ def login(request):
     return HttpResponse('login')
 
 
-def show_post(request, post_id):
-    return HttpResponse(f'Отображение статьи с id = {post_id}')
+def show_post(request, post_slug):
+    post = get_object_or_404(Articles, slug=post_slug)
+    context = {
+        'post': post,
+        'title': post.title,
+        'cat_selected': post.cat_id,
+    }
+    return render(request, 'articles/post.html', context=context)
 
 
-def show_category(request, cat_id):
-    posts = Articles.objects.filter(cat_id=cat_id)
-    cats = Category.objects.all()
+def show_category(request, cat_slug):
+    cat = Category.objects.get(slug=cat_slug)
+    posts = Articles.objects.filter(cat_id=cat.id)
 
     if len(posts) == 0:
         raise Http404
 
     context = {
         'posts': posts,
-        'cats': cats,
-        'navigation': navigation,
         'title': 'Отображение по рубрикам',
-        'cat_selected': cat_id,
+        'cat_selected': cat.id,
     }
     return render(request, 'articles/index.html', context=context)
 
