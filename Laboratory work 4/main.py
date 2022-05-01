@@ -1,5 +1,6 @@
-from garden_area import *
 import click
+
+from garden_area import *
 
 
 @click.command()

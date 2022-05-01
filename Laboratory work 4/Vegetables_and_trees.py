@@ -1,8 +1,9 @@
 import random
+
 from Save_and_del import *
 
 
-def how_many_days_to_grow() -> int:
+def calculate_count_of_days_to_grow() -> int:
     numbers_of_days = range(12, 30)
     number = random.choice(numbers_of_days)
     numbers = (number // 6)
@@ -12,7 +13,7 @@ def how_many_days_to_grow() -> int:
     return int(number)
 
 
-def how_many_days_until_the_next_stage(number: int) -> int:
+def calculate_count_of_days_until_the_next_stage(number: int) -> int:
     interval = number / 6
     return int(interval)
 
@@ -95,17 +96,18 @@ class GrowthAndDeath(SeedsAndTrees):
         if creation == 0:
             parameters = ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param)
             self.__day = parameters[0]
-            self.__how_many_days_to_grow = parameters[1]
-            self.__how_many_days_until_the_next_stage = parameters[2]
+            self.__days_to_grow = parameters[1]
+            self.__days_until_the_next_stage = parameters[2]
             self.__hp = parameters[3]
         elif creation == 1:
             self.__day = 0
-            self.__how_many_days_to_grow = how_many_days_to_grow()
+            self.__day = 0
+            self.__days_to_grow = calculate_count_of_days_to_grow()
             number = self.info_day
-            self.__how_many_days_until_the_next_stage = how_many_days_until_the_next_stage(number)
+            self.__days_until_the_next_stage = calculate_count_of_days_until_the_next_stage(number)
             self.__hp = 9
-            ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param, self.__how_many_days_to_grow,
-                                                                    self.__how_many_days_until_the_next_stage)
+            ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param, self.__days_to_grow,
+                                                                    self.__days_until_the_next_stage)
 
     def del_object(self, param: int) -> None:
         name = self.info_name
@@ -114,8 +116,8 @@ class GrowthAndDeath(SeedsAndTrees):
 
     def change_hp(self, param: int) -> int:
         self.__hp += -1
-        ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                  self.__how_many_days_until_the_next_stage, self.__hp, param)
+        ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                  self.__days_until_the_next_stage, self.__hp, param)
         if self.__hp == 0:
             return 0
         else:
@@ -123,8 +125,8 @@ class GrowthAndDeath(SeedsAndTrees):
 
     def regeneration_hp(self, param: int) -> None:
         self.__hp = 9
-        ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                  self.__how_many_days_until_the_next_stage, self.__hp, param)
+        ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                  self.__days_until_the_next_stage, self.__hp, param)
 
     @property
     def info_lever_of_hp(self) -> int:
@@ -132,11 +134,11 @@ class GrowthAndDeath(SeedsAndTrees):
 
     @property
     def info_day(self) -> int:
-        return self.__how_many_days_to_grow
+        return self.__days_to_grow
 
     @property
-    def info_how_many_days_until_the_next_stage(self) -> int:
-        return self.__how_many_days_until_the_next_stage
+    def info_about_of_days_until_the_next_stage(self) -> int:
+        return self.__days_until_the_next_stage
 
     @property
     def day_today(self) -> int:
@@ -144,34 +146,34 @@ class GrowthAndDeath(SeedsAndTrees):
 
     def change_day_today(self, i: int, param: int) -> None:
         self.__day = i
-        ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                  self.__how_many_days_until_the_next_stage, self.__hp, param)
+        ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                  self.__days_until_the_next_stage, self.__hp, param)
 
     def next_day(self, param: int) -> int:
         if param == 0:
             if self.info_height == "Плод созрел":
                 self.__day += 1
-                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                          self.__how_many_days_until_the_next_stage, self.__hp, param)
-                count = self.__day - self.__how_many_days_to_grow
+                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                          self.__days_until_the_next_stage, self.__hp, param)
+                count = self.__day - self.__days_to_grow
                 if self.info_height == "Плод созрел" and count == 3:
                     return 0
                 else:
                     return 1
             else:
                 self.__day += 1
-                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                          self.__how_many_days_until_the_next_stage, self.__hp, param)
+                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                          self.__days_until_the_next_stage, self.__hp, param)
                 for i in range(1, 7):
-                    if self.__day == self.__how_many_days_until_the_next_stage * i:
+                    if self.__day == self.__days_until_the_next_stage * i:
                         self.fetal_growth(i, param)
         elif param == 1:
 
             if self.info_height == "Период плодоношения":
                 self.__day += 1
-                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                          self.__how_many_days_until_the_next_stage, self.__hp, param)
-                count = self.__day - self.__how_many_days_to_grow
+                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                          self.__days_until_the_next_stage, self.__hp, param)
+                count = self.__day - self.__days_to_grow
                 if self.info_height == "Период плодоношения" and count == 3:
                     return 0
                 else:
@@ -179,10 +181,10 @@ class GrowthAndDeath(SeedsAndTrees):
 
             else:
                 self.__day += 1
-                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__how_many_days_to_grow,
-                                                          self.__how_many_days_until_the_next_stage, self.__hp, param)
+                ReadOverwritingGrowthAndDeath.overwriting(self.info_name, self.__day, self.__days_to_grow,
+                                                          self.__days_until_the_next_stage, self.__hp, param)
                 for i in range(1, 7):
-                    if self.__day == self.__how_many_days_until_the_next_stage * i:
+                    if self.__day == self.__days_until_the_next_stage * i:
                         self.fetal_growth(i, param)
 
 

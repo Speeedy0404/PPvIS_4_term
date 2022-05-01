@@ -1,19 +1,15 @@
 from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.floatlayout import FloatLayout
 from kivy.config import Config
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.button import Button
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
+from kivy.uix.label import Label
+from kivy.uix.screenmanager import ScreenManager, Screen
+
 from garden_area import GardenArea
 from garden_bed_and_trees import SeedBed, Orchard
 
 Config.set('graphics', 'resizable', 0)
 Config.set('graphics', 'width', 1300)
 Config.set('graphics', 'height', 800)
-
-from kivy.uix.textinput import TextInput
 
 Builder.load_string('''
 <ItemTextInput@TextInput>:

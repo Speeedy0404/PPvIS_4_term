@@ -1,8 +1,8 @@
-from actions import *
 from Weather import *
+from actions import *
+from dictionary import dictionary
 from garden_bed_and_trees import *
 from view_cli import *
-from dictionary import dictionary
 
 
 class GardenArea:
@@ -391,6 +391,8 @@ class GardenArea:
         if gui:
             try:
                 object_of_the_plot: str = input_gui
+                if len(object_of_the_plot) == 0 or ' ' in object_of_the_plot:
+                    raise NameError
                 for i in range(0, len(name)):
                     if object_of_the_plot != name[i]:
                         continue
@@ -404,6 +406,8 @@ class GardenArea:
         else:
             try:
                 object_of_the_plot: str = input(dictionary['create_seed'])
+                if len(object_of_the_plot) == 0:
+                    raise NameError
                 for i in range(0, len(name)):
                     if object_of_the_plot != name[i]:
                         continue
@@ -468,6 +472,8 @@ class GardenArea:
         if gui:
             try:
                 object_of_the_plot: str = input_gui
+                if len(object_of_the_plot) == 0 or ' ' in object_of_the_plot:
+                    raise NameError
                 for i in range(0, len(name)):
                     if object_of_the_plot != name[i]:
                         continue
@@ -480,6 +486,8 @@ class GardenArea:
         else:
             try:
                 object_of_the_plot: str = input(dictionary['create_fruit'])
+                if len(object_of_the_plot) == 0:
+                    raise NameError
                 for i in range(0, len(name)):
                     if object_of_the_plot != name[i]:
                         continue

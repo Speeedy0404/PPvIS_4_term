@@ -1,7 +1,6 @@
 from Vegetables_and_trees import *
-from weeds_vermin_illness import *
-from Save_and_del import *
 from view_cli import *
+from weeds_vermin_illness import *
 
 
 class GardenBedAndTrees:
@@ -113,11 +112,11 @@ class GardenBedAndTrees:
 
     @staticmethod
     def change_height(position: int, param: int) -> None:
-        i_delta: int = 0
-        i_growth: int = 0
+        days_delta: int = 0
+        growth_delta: int = 0
         growth_stage = []
-        height_delta = ''
-        how_many = 0
+        current_height = ''
+        days_until_the_next_stage = 0
 
         if param == 0:
             growth_stage = ("Первые 2-3 настоящих листа", "Рост",
@@ -125,8 +124,9 @@ class GardenBedAndTrees:
                             "Формирование плода", "Вызревание плода",
                             "Плод созрел")
 
-            height_delta = GardenBedAndTrees.__vegetables_in_garden[position].info_height
-            how_many = GardenBedAndTrees.__vegetables_in_garden[position].info_how_many_days_until_the_next_stage
+            current_height = GardenBedAndTrees.__vegetables_in_garden[position].info_height
+            days_until_the_next_stage = GardenBedAndTrees.__vegetables_in_garden[
+                position].info_about_of_days_until_the_next_stage
 
         elif param == 1:
             growth_stage = ("Семечко в земле", "Рост",
@@ -135,21 +135,22 @@ class GardenBedAndTrees:
                             "Период роста", "Период вызревания",
                             "Период плодоношения")
 
-            height_delta: str = GardenBedAndTrees.__fruits_in_garden[position].info_height
-            how_many: int = GardenBedAndTrees.__fruits_in_garden[position].info_how_many_days_until_the_next_stage
+            current_height: str = GardenBedAndTrees.__fruits_in_garden[position].info_height
+            days_until_the_next_stage: int = GardenBedAndTrees.__fruits_in_garden[
+                position].info_about_of_days_until_the_next_stage
 
         for i in range(0, 7):
-            if height_delta == growth_stage[i]:
-                i_delta: int = how_many * (i + 1)
-                i_growth: int = i + 1
+            if current_height == growth_stage[i]:
+                days_delta: int = days_until_the_next_stage * (i + 1)
+                growth_delta: int = i + 1
                 break
 
         if param == 0:
-            GardenBedAndTrees.__vegetables_in_garden[position].change_day_today(i_delta, param)
-            GardenBedAndTrees.__vegetables_in_garden[position].fetal_growth(i_growth, param)
+            GardenBedAndTrees.__vegetables_in_garden[position].change_day_today(days_delta, param)
+            GardenBedAndTrees.__vegetables_in_garden[position].fetal_growth(growth_delta, param)
         elif param == 1:
-            GardenBedAndTrees.__fruits_in_garden[position].change_day_today(i_delta, param)
-            GardenBedAndTrees.__fruits_in_garden[position].fetal_growth(i_growth, param)
+            GardenBedAndTrees.__fruits_in_garden[position].change_day_today(days_delta, param)
+            GardenBedAndTrees.__fruits_in_garden[position].fetal_growth(growth_delta, param)
 
     @staticmethod
     def the_objects_is_cured(position: int, param: int) -> None:

@@ -97,8 +97,8 @@ class ReadOverwritingSeeds:
 class ReadOverwritingGrowthAndDeath:
 
     @staticmethod
-    def read_overwriting_for_init(name: str, creation: int, param: int, how_many_days_to_grow: int = 0,
-                                  how_many_days_until_the_next_stage: int = 0) -> list:
+    def read_overwriting_for_init(name: str, creation: int, param: int, days_to_grow: int = 0,
+                                  days_until_the_next_stage: int = 0) -> list:
 
         if creation == 0:
             parameters = []
@@ -111,13 +111,13 @@ class ReadOverwritingGrowthAndDeath:
                 for item in data[del_name]:
                     if name in data[del_name][item]:
                         day = data[del_name][item][name]["day"]
-                        how_many_days_to_grow = data[del_name][item][name]["how_many_days_to_grow"]
-                        how_many_days_until_the_next_stage = data[del_name][item][name][
-                            "how_many_days_until_the_next_stage"]
+                        days_to_grow = data[del_name][item][name]["days_to_grow"]
+                        days_until_the_next_stage = data[del_name][item][name][
+                            "days_until_the_next_stage"]
                         hp = data[del_name][item][name]["hp"]
                         parameters.append(day)
-                        parameters.append(how_many_days_to_grow)
-                        parameters.append(how_many_days_until_the_next_stage)
+                        parameters.append(days_to_grow)
+                        parameters.append(days_until_the_next_stage)
                         parameters.append(hp)
                         return parameters
         elif creation == 1:
@@ -133,9 +133,9 @@ class ReadOverwritingGrowthAndDeath:
             for item in data[del_name]:
                 if Globals.name_of_object in data[del_name][item]:
                     data[del_name][item][Globals.name_of_object]["day"] = day
-                    data[del_name][item][Globals.name_of_object]["how_many_days_to_grow"] = how_many_days_to_grow
+                    data[del_name][item][Globals.name_of_object]["days_to_grow"] = days_to_grow
                     data[del_name][item][Globals.name_of_object][
-                        "how_many_days_until_the_next_stage"] = how_many_days_until_the_next_stage
+                        "days_until_the_next_stage"] = days_until_the_next_stage
                     data[del_name][item][Globals.name_of_object]["hp"] = hp
 
             with open("garden_area.json", 'w') as file:
@@ -168,7 +168,7 @@ class ReadOverwritingGrowthAndDeath:
                 json.dump(data, file, indent=3)
 
     @staticmethod
-    def overwriting(path: str, day: int, how_many_days_to_grow: int, how_many_days_until_the_next_stage: int, hp: int,
+    def overwriting(path: str, day: int, days_to_grow: int, days_until_the_next_stage: int, hp: int,
                     param: int) -> None:
         with open("garden_area.json", 'r') as file:
             data = json.load(file)
@@ -180,9 +180,9 @@ class ReadOverwritingGrowthAndDeath:
         for item in data[del_name]:
             if path in data[del_name][item]:
                 data[del_name][item][path]["day"] = day
-                data[del_name][item][path]["how_many_days_to_grow"] = how_many_days_to_grow
+                data[del_name][item][path]["days_to_grow"] = days_to_grow
                 data[del_name][item][path][
-                    "how_many_days_until_the_next_stage"] = how_many_days_until_the_next_stage
+                    "days_until_the_next_stage"] = days_until_the_next_stage
                 data[del_name][item][path]["hp"] = hp
 
         with open("garden_area.json", 'w') as file:
