@@ -1,3 +1,6 @@
+from dictionary import dictionary
+
+
 class Actions:
 
     def __init__(self, action: str) -> None:
@@ -9,17 +12,17 @@ class Actions:
 
 class Fertilizer(Actions):
 
-    def __init__(self, action: str = "Удобрение применено. Пошёл активный рост") -> None:
+    def __init__(self, action: str = dictionary["fertilizer"]) -> None:
         super().__init__(action)
 
 
 class Watering(Actions):
 
-    def __init__(self, action: str = "Произведён полив. Плод обогащён водой") -> None:
+    def __init__(self, action: str = dictionary["watering"]) -> None:
         super().__init__(action)
 
 
 class Weeding(Actions):
 
-    def __init__(self, action: str = "Произведенна прополка. Сорняки обезвреженны") -> None:
+    def __init__(self, action: str = dictionary["weeding"]) -> None:
         super().__init__(action)
