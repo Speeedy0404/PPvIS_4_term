@@ -19,9 +19,9 @@ class Level:
         self.current_x = None
 
         # audio
-        self.coin_sound = pygame.mixer.Sound('/PyCharm/Ознакомление/pygame_level/audio/effects/coin.wav')
+        self.coin_sound = pygame.mixer.Sound('audio/effects/coin.wav')
         self.coin_sound.set_volume(0.2)
-        self.stomp_sound = pygame.mixer.Sound('/PyCharm/Ознакомление/pygame_level/audio/effects/stomp.wav')
+        self.stomp_sound = pygame.mixer.Sound('audio/effects/stomp.wav')
         self.stomp_sound.set_volume(0.2)
 
         # overworld connection
@@ -99,13 +99,13 @@ class Level:
 
                     if type == 'terrain':
                         terrain_tile_list = import_cut_graphics(
-                            '/PyCharm/Ознакомление/pygame_level/graphics/terrain/terrain_tiles.png')
+                            'graphics/terrain/terrain_tiles.png')
                         tile_surface = terrain_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
                     if type == 'grass':
                         grass_tile_list = import_cut_graphics(
-                            '/PyCharm/Ознакомление/pygame_level/graphics/decoration/grass/grass.png')
+                            'graphics/decoration/grass/grass.png')
                         tile_surface = grass_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
@@ -114,23 +114,23 @@ class Level:
 
                     if type == 'coins':
                         if val == '0':
-                            sprite = Coin(tile_size, x, y, '/PyCharm/Ознакомление/pygame_level/graphics/coins/gold', 5)
+                            sprite = Coin(tile_size, x, y, 'graphics/coins/gold', 5)
                         elif val == '1':
-                            sprite = Coin(tile_size, x, y, '/PyCharm/Ознакомление/pygame_level/graphics/coins/silver',
+                            sprite = Coin(tile_size, x, y, 'graphics/coins/silver',
                                           1)
 
                     if type == 'fg palms':
                         if val == '0':
                             sprite = Palm(tile_size, x, y,
-                                          '/PyCharm/Ознакомление/pygame_level/graphics/terrain/palm_small',
+                                          'graphics/terrain/palm_small',
                                           38)
                         if val == '1':
                             sprite = Palm(tile_size, x, y,
-                                          '/PyCharm/Ознакомление/pygame_level/graphics/terrain/palm_large',
+                                          'graphics/terrain/palm_large',
                                           64)
                     if type == 'bg palms':
                         sprite = Palm(tile_size, x, y,
-                                      '/PyCharm/Ознакомление/pygame_level/graphics/terrain/palm_bg',
+                                      'graphics/terrain/palm_bg',
                                       64)
                     if type == 'enemies':
                         sprite = Enemy(tile_size, x, y)
@@ -152,7 +152,7 @@ class Level:
                     self.player.add(sprite)
                 if val == '1':
                     hat_surface = pygame.image.load(
-                        '/PyCharm/Ознакомление/pygame_level/graphics/character/hat.png').convert_alpha()
+                        'graphics/character/hat.png').convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 

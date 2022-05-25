@@ -20,7 +20,7 @@ class MenuIcon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
-        self.image = pygame.image.load('/PyCharm/Ознакомление/pygame_level/graphics/overworld/hat.png').convert_alpha()
+        self.image = pygame.image.load('graphics/overworld/hat.png').convert_alpha()
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):
@@ -40,7 +40,7 @@ class About:
         self.display_surface = surface
         self.create_menu = create_menu
         self.bg = pygame.image.load(
-            '/PyCharm/Ознакомление/pygame_level/graphics/menu/menu.jpg').convert_alpha()
+            'graphics/menu/menu.jpg').convert_alpha()
         shift = 0
         for i in btn_content:
             shift += 50
@@ -69,7 +69,7 @@ class Records:
         self.display_surface = surface
         self.create_menu = create_menu
         self.bg = pygame.image.load(
-            '/PyCharm/Ознакомление/pygame_level/graphics/menu/menu.jpg').convert_alpha()
+            'graphics/menu/menu.jpg').convert_alpha()
         shift = 0
 
         self.font = pygame.font.SysFont('Arial', 60)
@@ -118,7 +118,7 @@ class Menu:
         self.current_btn = current_btn
         self.max_btn = max_btn
         self.menu = pygame.image.load(
-            '/PyCharm/Ознакомление/pygame_level/graphics/menu/menu.jpg').convert_alpha()
+            'graphics/menu/menu.jpg').convert_alpha()
 
         # movement logic
         self.moving = False

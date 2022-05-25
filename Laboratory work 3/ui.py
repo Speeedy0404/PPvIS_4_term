@@ -8,19 +8,19 @@ class UI:
 
         # health
         self.health_bar = pygame.image.load(
-            '/PyCharm/Ознакомление/pygame_level/graphics/ui/health_bar.png').convert_alpha()
+            'graphics/ui/health_bar.png').convert_alpha()
         self.health_bar_topleft = (54, 39)
         self.bar_max_width = 152
         self.bar_height = 4
 
         # coins
-        self.coin = pygame.image.load('/PyCharm/Ознакомление/pygame_level/graphics/ui/coin.png').convert_alpha()
+        self.coin = pygame.image.load('graphics/ui/coin.png').convert_alpha()
         self.coin_rect = self.coin.get_rect(topleft=(50, 61))
-        self.font = pygame.font.Font('/PyCharm/Ознакомление/pygame_level/graphics/ui/ARCADEPI.ttf', 30)
+        self.font = pygame.font.Font('graphics/ui/ARCADEPI.ttf', 30)
 
         # score
-        self.score = pygame.font.Font('/PyCharm/Ознакомление/pygame_level/graphics/ui/ARCADEPI.ttf', 30)
-        self.score_font = pygame.font.Font('/PyCharm/Ознакомление/pygame_level/graphics/ui/ARCADEPI.ttf', 30)
+        self.score = pygame.font.Font('graphics/ui/ARCADEPI.ttf', 30)
+        self.score_font = pygame.font.Font('graphics/ui/ARCADEPI.ttf', 30)
 
     def show_health(self, current_health, full):
         self.display_surface.blit(self.health_bar, (20, 10))

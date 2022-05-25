@@ -42,13 +42,13 @@ class Player(pygame.sprite.Sprite):
         self.hurt_time = 0
 
         # audio
-        self.jump_sound = pygame.mixer.Sound('/PyCharm/Ознакомление/pygame_level/audio/effects/jump.wav')
+        self.jump_sound = pygame.mixer.Sound('audio/effects/jump.wav')
         self.jump_sound.set_volume(0.2)
-        self.hit_sound = pygame.mixer.Sound('/PyCharm/Ознакомление/pygame_level/audio/effects/hit.wav')
+        self.hit_sound = pygame.mixer.Sound('audio/effects/hit.wav')
         self.hit_sound.set_volume(0.2)
 
     def import_character_assets(self):
-        character_path = '/PyCharm/Ознакомление/pygame_level/graphics/character/'
+        character_path = 'graphics/character/'
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
 
         for animation in self.animations.keys():
@@ -56,7 +56,7 @@ class Player(pygame.sprite.Sprite):
             self.animations[animation] = import_folder(full_path)
 
     def import_dust_run_particles(self):
-        self.dust_run_particles = import_folder('/PyCharm/Ознакомление/pygame/graphics/character/dust_particles/run')
+        self.dust_run_particles = import_folder('graphics/character/dust_particles/run')
 
     def animate(self):
         animation = self.animations[self.status]
