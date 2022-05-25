@@ -1,0 +1,118 @@
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+
+<ItemLabel@Label>:
+    color: 'white'
+    halign:'center'
+    valign:'middle'
+    text_size:self.size
+
+<Table>:
+    info: info
+    button:button
+    FloatLayout:
+        ItemLabel:
+            text: 'Число  пропусков  занятий  за  год(количество пропущенных пар)'
+            size_hint: .5, .1
+            pos: 1300/2-220, 720
+
+        GridLayout:
+            id: info
+            rows: 53
+            cols: 6
+            spacing: 3
+            size_hint: 1, .85
+            pos: 0, 80
+            ItemButton:
+                id:button
+                text:'Показать информацию'
+                on_press:
+                    root.del_info()
+                    root.add_info()
+            ItemButton:
+                text:'Выбор файла'
+                on_press:
+                    root.del_info()
+                    root.manager.transition.direction = 'left'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_six'
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+            ItemLabel:
+                text: 'Фио студента'
+            ItemLabel:
+                text: 'Группа'
+            ItemLabel:
+                text: 'По болезни'
+            ItemLabel:
+                text: 'По другим причинам'
+            ItemLabel:
+                text: 'Без уважительной причины'
+            ItemLabel:
+                text: 'Итого'
+
+
+
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint: 1, .05
+            pos: 0, 0
+            spacing:5
+            ItemButton:
+                text:'Предыдущая страница'
+                on_press:
+                    root.del_info()
+                    root.previous_page()
+                    root.add_info()
+            ItemButton:
+                text:'Следущая страница'
+                on_press:
+                    root.del_info()
+                    root.next_page()
+                    root.add_info()
+            ItemButton:
+                text:'Первая страница'
+                on_press:
+                    root.del_info()
+                    root.first_page()
+                    root.add_info()
+            ItemButton:
+                text:'Последняя страница'
+                on_press:
+                    root.del_info()
+                    root.last_page()
+                    root.add_info()
+            ItemButton:
+                text:'Изменить число записей'
+                on_press:
+                    root.del_info()
+                    root.manager.transition.direction = 'left'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_three'
+            ItemButton:
+                text:'Поиск'
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_four'
+            ItemButton:
+                text:'Удаление'
+                on_press:
+                    root.del_info()
+                    root.manager.transition.direction = 'left'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_five'
+            ItemButton:
+                text:'Добавить студента'
+                on_press:
+                    root.del_info()
+                    root.manager.transition.direction = 'left'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_two'

@@ -1,0 +1,49 @@
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+
+<Deletion>:
+    del_info:del_info
+    FloatLayout:
+
+        BoxLayout:
+            id:del_info
+            orientation: 'vertical'
+            size_hint: .5, .5
+            spacing:5
+            pos:325,200
+
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint: 1, .05
+            pos: 0, 0
+            spacing:5
+            ItemButton:
+                text:'По ФИО'
+                on_press:
+                    root.remove_widgets()
+                    root.add_widget_full_name()
+            ItemButton:
+                text:'По номеру группы'
+                on_press:
+                    root.remove_widgets()
+                    root.add_widget_group()
+            ItemButton:
+                text:'По виду пропуска'
+                on_press:
+                    root.remove_widgets()
+                    root.add_widget_view()
+            ItemButton:
+                text:'По виду пропуска(макс., мин.)'
+                on_press:
+                    root.remove_widgets()
+                    root.add_widget_view_min_max()
+            ItemButton:
+                text: 'Выход'
+                on_press:
+                    root.remove_widgets()
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_one'

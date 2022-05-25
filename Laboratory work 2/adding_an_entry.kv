@@ -1,0 +1,83 @@
+<ItemTextInput@TextInput>:
+    multiline: False
+    background_color: 'white'
+    halign: 'left'
+    cursor_blink: True
+    cursor_color: 'black'
+    foreground_color: 'black'
+    font_size: '14'
+
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+
+<AddingAnEntry>:
+    status:status
+    named:named
+    surname:surname
+    middlename:middlename
+    group:group
+    diseases:diseases
+    otherreasons:otherreasons
+    withoutavalid:withoutavalid
+
+    AnchorLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: .5, .5
+            ItemTextInput:
+                id:named
+                hint_text:'Имя'
+            ItemTextInput:
+                id:surname
+                hint_text:'Фамилия'
+            ItemTextInput:
+                id:middlename
+                hint_text:'Отчество'
+            ItemTextInput:
+                id:group
+                hint_text:'Группа'
+                input_type:'number'
+                input_filter:'int'
+            ItemTextInput:
+                id:diseases
+                hint_text:'Пропуски по болезни'
+                input_type:'number'
+                input_filter:'int'
+            ItemTextInput:
+                id:otherreasons
+                hint_text:'Пропуски по другим причинам'
+                input_type:'number'
+                input_filter:'int'
+            ItemTextInput:
+                id:withoutavalid
+                hint_text:'Пропуски без причины'
+                input_type:'number'
+                input_filter:'int'
+            ItemButton:
+                text: 'Добавить студента'
+                on_press:
+                    root.add_student()
+                    root.change_status()
+            Label:
+                id:status
+                text:'Статус'
+                halign:'left'
+                valign:'middle'
+                text_size:self.size
+            ItemButton:
+                text: 'Выход'
+                on_press:
+                    root.status.text='Статус'
+                    root.named.text=''
+                    root.surname.text=''
+                    root.middlename.text=''
+                    root.group.text=''
+                    root.diseases.text=''
+                    root.otherreasons.text=''
+                    root.withoutavalid.text=''
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_one'

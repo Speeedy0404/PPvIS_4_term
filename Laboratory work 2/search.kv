@@ -1,0 +1,81 @@
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+<ItemLabel@Label>:
+    color: 'white'
+    halign:'center'
+    valign:'middle'
+    text_size:self.size
+
+<Search>:
+    search:search
+    info:info
+    FloatLayout:
+
+        GridLayout:
+            id: info
+            rows: 37
+            cols: 6
+            spacing: 3
+            size_hint: 1, .7
+            pos: 0,245
+            ItemLabel:
+                text: 'Фио студента'
+            ItemLabel:
+                text: 'Группа'
+            ItemLabel:
+                text: 'По болезни'
+            ItemLabel:
+                text: 'По другим причинам'
+            ItemLabel:
+                text: 'Без уважительной причины'
+            ItemLabel:
+                text: 'Итого'
+
+        BoxLayout:
+            id:search
+            spacing:2
+            orientation: 'vertical'
+            size_hint: .5, .25
+            pos:325,45
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint: 1, .05
+            pos: 0, 0
+            spacing:5
+            ItemButton:
+                text:'По ФИО'
+                on_press:
+                    root.remove_widgets()
+                    root.remove_widgets_info()
+                    root.add_widget_full_name()
+            ItemButton:
+                text:'По номеру группы'
+                on_press:
+                    root.remove_widgets()
+                    root.remove_widgets_info()
+                    root.add_widget_group()
+            ItemButton:
+                text:'По виду пропуска'
+                on_press:
+                    root.remove_widgets()
+                    root.remove_widgets_info()
+                    root.add_widget_view()
+            ItemButton:
+                text:'По виду пропуска(макс., мин.)'
+                on_press:
+                    root.remove_widgets()
+                    root.remove_widgets_info()
+                    root.add_widget_view_min_max()
+            ItemButton:
+                text: 'Выход'
+                on_press:
+                    root.remove_widgets()
+                    root.remove_widgets_info()
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_one'

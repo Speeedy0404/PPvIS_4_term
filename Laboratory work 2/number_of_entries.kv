@@ -1,0 +1,44 @@
+<ItemTextInput@TextInput>:
+    multiline: False
+    background_color: 'white'
+    halign: 'left'
+    cursor_blink: True
+    cursor_color: 'black'
+    foreground_color: 'black'
+    font_size: '14'
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+
+<NumberOfEntries>:
+    sized:sized
+    status:status
+    AnchorLayout:
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: .25, .25
+            ItemTextInput:
+                id:sized
+                hint_text:'Число записей на странице(0-50)'
+                input_type:'number'
+                input_filter:'int'
+            ItemButton:
+                text:'Применить изменения'
+                on_press:
+                    root.change_the_nuber_of_entries()
+            Label:
+                id:status
+                text:'Статус'
+                halign:'left'
+                valign:'middle'
+                text_size:self.size
+            ItemButton:
+                text: 'Выход'
+                on_press:
+                    root.status.text='Статус'
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_one'

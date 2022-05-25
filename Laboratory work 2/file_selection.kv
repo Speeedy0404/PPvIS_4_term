@@ -1,0 +1,52 @@
+<ItemTextInput@TextInput>:
+    multiline: False
+    background_color: 'white'
+    halign: 'left'
+    cursor_blink: True
+    cursor_color: 'black'
+    foreground_color: 'black'
+    font_size: '14'
+
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+
+<FileSelection>:
+    file:file
+    status:status
+    named:named
+    AnchorLayout:
+        BoxLayout:
+            id:file
+            orientation: 'vertical'
+            size_hint: .5, .5
+            spacing:5
+            ItemTextInput:
+                id:named
+                hint_text:'Введите нужный файл'
+            Label:
+                id:status
+                text:'Статус'
+                halign:'left'
+                valign:'middle'
+                text_size:self.size
+            ItemButton:
+                text: 'Показать доступные файлы'
+                on_press:
+                    root.remove_widgets()
+                    root.show_file()
+            ItemButton:
+                text: 'Выбрать'
+                on_press:
+                    root.choice()
+            ItemButton:
+                text: 'Выход'
+                on_press:
+                    root.named.text=''
+                    root.remove_widgets()
+                    root.status.text='Статус'
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0.5
+                    root.manager.current = 'screen_one'
