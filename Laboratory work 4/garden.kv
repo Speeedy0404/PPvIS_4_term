@@ -1,0 +1,247 @@
+<ItemTextInput@TextInput>:
+    multiline: False
+    background_color: 'white'
+    halign: 'left'
+    cursor_blink: True
+    cursor_color: 'black'
+    foreground_color: 'black'
+    font_size: '14'
+<ItemButton@Button>:
+    font_size: 12
+    color: 'black'
+    background_color: .32, .85, .94, 1
+    background_normal: ''
+<ItemLabel@Label>:
+    color: 'white'
+    halign:'center'
+    valign:'middle'
+    text_size:self.size
+
+<Garden>:
+
+    inffo:inffo
+    fruits:fruits
+    status:status
+
+    collect:collect
+    weed:weed
+    water:water
+    cure:cure
+    pests:pests
+    fertilizer:fertilizer
+    seedlingsnew:seedlingsnew
+    treenew:treenew
+    seedlingsdel:seedlingsdel
+    treedel:treedel
+
+    FloatLayout:
+        BoxLayout:
+            id:inffo
+            orientation: 'vertical'
+            size_hint: .35, 0.95
+            spacing:10
+            padding:10
+            pos:0,0
+
+        BoxLayout:
+            id:fruits
+            orientation: 'vertical'
+            size_hint: .35, .95
+            spacing:10
+            padding:10
+            pos:465,0
+
+        ItemLabel:
+            id:status
+            text:' Статус'
+            size_hint: .3, 0.1
+            pos:630,720
+
+        ItemButton:
+            text:'Собрать рассаду/плоды'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,660
+            on_press:
+                root.del_info()
+                root.press_collect()
+                root.show_info()
+
+        ItemTextInput:
+            id:collect
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,600
+
+        ItemButton:
+            text:'Прополоть'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,540
+            on_press:
+                root.del_info()
+                root.press_weed()
+                root.show_info()
+
+        ItemTextInput:
+            id:weed
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,480
+
+        ItemButton:
+            text:'Полить'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,420
+            on_press:
+                root.del_info()
+                root.press_water()
+                root.show_info()
+
+        ItemTextInput:
+            id:water
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,360
+
+        ItemButton:
+            text:'Вылечить'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,300
+            on_press:
+                root.del_info()
+                root.press_cure()
+                root.show_info()
+
+        ItemTextInput:
+            id:cure
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,240
+
+        ItemButton:
+            text:'Избавиться от вредителей'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,180
+            on_press:
+                root.del_info()
+                root.press_pests()
+                root.show_info()
+
+        ItemTextInput:
+            id:pests
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,120
+
+        ItemButton:
+            text:'Информация о участке'
+            size: 170,50
+            size_hint: None, None
+            pos: 950,60
+            on_press:
+                root.del_info()
+                root.show_info()
+
+
+        ItemButton:
+            text:'Использовать удобрение'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,660
+            on_press:
+                root.del_info()
+                root.press_fertilizer()
+                root.show_info()
+
+        ItemTextInput:
+            id:fertilizer
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,600
+
+        ItemButton:
+            text:'Посадить новую рассаду'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,540
+            on_press:
+                root.del_info()
+                root.seedlings_new()
+                root.show_info()
+
+        ItemTextInput:
+            id:seedlingsnew
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,480
+
+        ItemButton:
+            text:'Посадить новое дерево'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,420
+            on_press:
+                root.del_info()
+                root.tree_new()
+                root.show_info()
+
+        ItemTextInput:
+            id:treenew
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,360
+
+        ItemButton:
+            text:'Выкопать рассаду'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,300
+            on_press:
+                root.del_info()
+                root.seedlings_del()
+                root.show_info()
+
+        ItemTextInput:
+            id:seedlingsdel
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,240
+
+        ItemButton:
+            text:'Выкорчевать дерево'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,180
+            on_press:
+                root.del_info()
+                root.tree_del()
+                root.show_info()
+
+        ItemTextInput:
+            id:treedel
+            hint_text:'Название'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,120
+
+        ItemButton:
+            text:'Перейти к следующему дню'
+            size: 170,50
+            size_hint: None, None
+            pos: 1125,60
+            on_press:
+                root.del_info()
+                root.next_day()
