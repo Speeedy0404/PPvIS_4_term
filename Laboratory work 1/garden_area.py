@@ -1,8 +1,8 @@
 from actions import *
+from dictionary import dictionary
 from garden_bed_and_trees import *
 from view_cli import *
 from weather import *
-from dictionary import dictionary
 
 
 class GardenArea:
@@ -101,8 +101,7 @@ class GardenArea:
 
                 watering.using_actions()
                 SeedBed.regenerate_level_of_water(position_of_vegetable,
-                                                  SeedBed.check_level_of_water(position_of_vegetable, param=0),
-                                                  param=0)
+                                                  SeedBed.check_level_of_water(position_of_vegetable, param=0), param=0)
 
             if position_of_fruit is None:
                 pass
@@ -114,8 +113,7 @@ class GardenArea:
                                            "", dictionary['line'])
                 watering.using_actions()
                 Orchard.regenerate_level_of_water(position_of_fruit,
-                                                  Orchard.check_level_of_water(position_of_fruit, param=1),
-                                                  param=1)
+                                                  Orchard.check_level_of_water(position_of_fruit, param=1), param=1)
         except NameError:
             ViewPrint.show_status_view(dictionary['line'],
                                        dictionary['no_name'], dictionary['line'])
@@ -331,6 +329,7 @@ class GardenArea:
 
         ViewPrint.show_status_view(dictionary['line'], dictionary['area'],
                                    dictionary['weather'].format(weather.info_weather))
+
         ViewPrint.show_info_view(SeedBed.show_information_about_objects, SeedBed.status,
                                  Orchard.show_information_about_objects, Orchard.status)
 

@@ -109,7 +109,8 @@ class GrowthAndDeath(SeedsAndTrees):
             number = self.info_day
             self.__days_until_the_next_stage = days_until_the_next_stage(number)
             self.__hp = 9
-            ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param, self.__days_to_grow,
+            ReadOverwritingGrowthAndDeath.read_overwriting_for_init(name, creation, param,
+                                                                    self.__days_to_grow,
                                                                     self.__days_until_the_next_stage)
 
     def del_object(self, param: int) -> None:
